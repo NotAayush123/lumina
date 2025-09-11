@@ -45,13 +45,6 @@ export function DraggableCardDemo() {
   const [cards, setCards] = React.useState(items);
   const [allSwiped, setAllSwiped] = React.useState(false);
 
-  // Handler to remove a card (simulate swipe)
-  const handleSwipe = (idx) => {
-    const newCards = cards.filter((_, i) => i !== idx);
-    setCards(newCards);
-    if (newCards.length === 0) setAllSwiped(true);
-  };
-
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 min-h-screen w-full items-center justify-center overflow-clip px-40">
       {/* Left Side: Text */}
