@@ -24,7 +24,7 @@ const MentalHealth = () => {
                 for everyone.
             </h1>
             <p className="text-gray-600 text-lg mb-8 leading-relaxed">
-              Reach underserved student populations and provide 24/7 support across every stage of the mental health journey.
+            Reach vital resources or talk to one of our certified therapists for every step of your mental health journey.
             </p>
             <button className="bg-blue-600 text-white px-8 py-4 rounded-full font-medium hover:bg-blue-700 transition-colors">
               Explore Solutions
@@ -34,9 +34,9 @@ const MentalHealth = () => {
           {/* Right columns - Service cards */}
           <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Expand Care card */}
-            <div className="bg-blue-200 rounded-2xl p-6 group hover:bg-blue-100 transition-colors cursor-pointer">
+            <div className="bg-rose-400 rounded-2xl p-6 group hover:bg-blue-100 transition-colors cursor-pointer">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-xl font-semibold text-gray-900">Expand Care</h3>
+                <h3 className="text-xl font-semibold text-gray-900">Resources</h3>
                 <svg 
                   className="w-6 h-6 text-gray-400 group-hover:text-blue-600 transition-colors" 
                   fill="none" 
@@ -47,14 +47,14 @@ const MentalHealth = () => {
                 </svg>
               </div>
               <p className="text-gray-600">
-                Improve access to clinical care for students in need.
+                Access to vital information about mental health disorders
               </p>
             </div>
 
             {/* Manage Crises card */}
-            <div className="bg-blue-200 rounded-2xl p-6 group hover:bg-blue-100 transition-colors cursor-pointer">
+            <div className="bg-green-400 rounded-2xl p-6 group hover:bg-blue-100 transition-colors cursor-pointer">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-xl font-semibold text-gray-900">Manage Crises</h3>
+                <h3 className="text-xl font-semibold text-gray-900">Support Community</h3>
                 <svg 
                   className="w-6 h-6 text-gray-400 group-hover:text-blue-600 transition-colors" 
                   fill="none" 
@@ -65,14 +65,14 @@ const MentalHealth = () => {
                 </svg>
               </div>
               <p className="text-gray-600">
-                Catch severe cases, and deliver an empathetic evidence-based treatment.
+                Read and talk to people that have had similar issues
               </p>
             </div>
 
             {/* Promote Wellness card */}
-            <div className="bg-blue-200 rounded-2xl p-6 group hover:bg-blue-100 transition-colors cursor-pointer">
+            <div className="bg-orange-400 rounded-2xl p-6 group hover:bg-blue-100 transition-colors cursor-pointer">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-xl font-semibold text-gray-900">Promote Wellness</h3>
+                <h3 className="text-xl font-semibold text-gray-900">Blog</h3>
                 <svg 
                   className="w-6 h-6 text-gray-400 group-hover:text-blue-600 transition-colors" 
                   fill="none" 
@@ -83,14 +83,14 @@ const MentalHealth = () => {
                 </svg>
               </div>
               <p className="text-gray-600">
-                Support student wellbeing and foster social connectedness on campus.
+                Read our curated mental health blog articles for tips and insights.
               </p>
             </div>
 
             {/* Prevent Escalation card */}
-            <div className="bg-blue-200 rounded-2xl p-6 group hover:bg-blue-100 transition-colors cursor-pointer">
+            <div className="bg-blue-400 rounded-2xl p-6 group hover:bg-blue-100 transition-colors cursor-pointer">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-xl font-semibold text-gray-900">Prevent Escalation</h3>
+                <h3 className="text-xl font-semibold text-gray-900">Schedule Consultation</h3>
                 <svg 
                   className="w-6 h-6 text-gray-400 group-hover:text-blue-600 transition-colors" 
                   fill="none" 
@@ -101,7 +101,7 @@ const MentalHealth = () => {
                 </svg>
               </div>
               <p className="text-gray-600">
-                Give students with mild symptoms the care they need to get back on track.
+                Book an appointment for one of our many certified therapists
               </p>
             </div>
             

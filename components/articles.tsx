@@ -2,7 +2,7 @@ import React from 'react';
 
 const EventsResourcesGrid = () => {
   return (
-    <div className="bg-gray-50 px-8 py-16">
+    <div className="bg-gray-50 px-8 py-16 mt-20">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-12">

@@ -6,16 +6,16 @@ const FooterSection = () => {
       {/* Hero Section */}
       <div className="px-8 py-20 text-center">
         <h1 className="text-5xl md:text-6xl text-white mb-6 leading-tight">
-          Your all-in-one solution for campus mental health
+          The only all inclusive mental health hub 
         </h1>
         <p className="text-xl text-gray-300 mb-12">
-          One contract. One experience. One team. One report.
+          you'll ever need!
         </p>
         
         {/* CTA Banner */}
         <div className="bg-gray-100 rounded-2xl px-8 py-6 max-w-4xl mx-auto flex items-center justify-between">
           <p className="text-gray-800 text-lg font-medium">
-            Learn more about packaging and pricing for your campus.
+            Book an appointment with a licensed therapist today!
           </p>
           <button className="bg-blue-600 text-white px-8 py-4 rounded-full font-medium hover:bg-blue-700 transition-colors ml-8">
             Get in Touch

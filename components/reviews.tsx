@@ -11,9 +11,9 @@ const StudentSuccessSection = () => {
             {/* Header */}
             <div className="text-center mb-16">
               <h1 className="text-6xl text-gray-900 mb-4">
-                Proven to help students
+                Proven to help 
                 <br />
-                <p className="font-semibold">stay in school.</p>
+                <p className="font-semibold">mental health.</p>
               </h1>
             </div>
 
@@ -29,25 +29,25 @@ const StudentSuccessSection = () => {
               </div>
 
               {/* Floating tags positioned around image */}
-              <div className="absolute -top-4 -left-0">
+              <div className="absolute top-20  left-50">
                 <div className="bg-gray-800 text-white px-5 py-3 rounded-xl text-sm font-medium shadow-lg">
                   1:1 Sessions
                 </div>
               </div>
 
-              <div className="absolute -top-4 -right-20">
+              <div className="absolute top-4 right-50">
                 <div className="bg-gray-800 text-white px-5 py-3 rounded-xl text-sm font-medium shadow-lg">
                   Life Skills
                 </div>
               </div>
 
-              <div className="absolute bottom-8 -left-24">
+              <div className="absolute top-80 left-30">
                 <div className="bg-gray-800 text-white px-5 py-3 rounded-xl text-sm font-medium shadow-lg">
                   Coaching
                 </div>
               </div>
 
-              <div className="absolute bottom-8 -right-16">
+              <div className="absolute bottom-8 right-30">
                 <div className="bg-gray-800 text-white px-5 py-3 rounded-xl text-sm font-medium shadow-lg">
                   On Demand<br />Support
                 </div>
@@ -57,7 +57,7 @@ const StudentSuccessSection = () => {
             {/* Description text */}
             <div className="text-center max-w-3xl mx-auto mb-12">
               <p className="text-gray-700 text-lg leading-relaxed">
-                Among students with high dropout risk, 70% saw improvements after engaging in Lumina services, and 61% dropped to low risk. With so many factors contributing to a student's dropout risk, it's clear Lumina makes a difference.
+                Among people with severe mental disorders, 70% saw improvements after engaging in Lumina services, and 61% dropped to low risk. With so many factors contributing to mental health disorders, it's clear Lumina makes a difference.
               </p>
             </div>
 
