@@ -1,5 +1,5 @@
 import React from 'react'
-import { InfiniteMovingCards } from "@/components/infiniteMovingCards";
+import { InfiniteMovingCards } from "@/components/home/infiniteMovingCards";
 const infiniteCards = () => {
     
 const mentalHealthInfo = [

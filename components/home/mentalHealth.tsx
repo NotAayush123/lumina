@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 
 const MentalHealth = () => {
@@ -34,7 +36,7 @@ const MentalHealth = () => {
           {/* Right columns - Service cards */}
           <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Expand Care card */}
-            <div className="bg-rose-400 rounded-2xl p-6 group hover:bg-blue-100 transition-colors cursor-pointer">
+            <div className="bg-rose-400 rounded-2xl p-6 group hover:bg-blue-100 transition-colors cursor-pointer" onClick={() => window.location.href = '/resources'}>
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-xl font-semibold text-gray-900">Resources</h3>
                 <svg 

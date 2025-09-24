@@ -1,10 +1,10 @@
-import EventsResourcesGrid from "@/components/articles";
-import FooterSection from "@/components/footerSection";
-import HeroSection from "@/components/hero";
-import InfiniteCards from "@/components/infiniteCards";
-import MentalHealth from "@/components/mentalHealth";
-import Navbar from "@/components/navbar";
-import StudentSuccessSection from "@/components/reviews";
+import EventsResourcesGrid from "@/components/home/articles";
+import FooterSection from "@/components/home/footerSection";
+import HeroSection from "@/components/home/hero";
+import InfiniteCards from "@/components/home/infiniteCards";
+import MentalHealth from "@/components/home/mentalHealth";
+import Navbar from "@/components/home/navbar";
+import StudentSuccessSection from "@/components/home/reviews";
 
 
 export default function Home() {
