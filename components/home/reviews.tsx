@@ -1,6 +1,85 @@
 import React from 'react';
 
+const FiveStars = ({ 
+  rating = 5, 
+  colors = ['red', 'green', 'orange', 'blue', 'yellow'],
+  size = 'w-5 h-5'
+}) => {
+  const getStarColor = (starIndex, rating, colors) => {
+    const colorIndex = starIndex % colors.length;
+    const baseColor = colors[colorIndex];
+    
+    // Color mappings for Tailwind classes
+    const colorMap = {
+      red: { filled: 'text-red-500', empty: 'text-red-200' },
+      green: { filled: 'text-green-500', empty: 'text-green-200' },
+      orange: { filled: 'text-orange-500', empty: 'text-orange-200' },
+      blue: { filled: 'text-blue-500', empty: 'text-blue-200' },
+      yellow: { filled: 'text-yellow-500', empty: 'text-yellow-200' },
+      purple: { filled: 'text-purple-500', empty: 'text-purple-200' },
+      pink: { filled: 'text-pink-500', empty: 'text-pink-200' },
+      indigo: { filled: 'text-indigo-500', empty: 'text-indigo-200' },
+      gray: { filled: 'text-gray-500', empty: 'text-gray-200' },
+      teal: { filled: 'text-teal-500', empty: 'text-teal-200' }
+    };
+
+    const fillLevel = rating - starIndex;
+    
+    if (fillLevel >= 1) {
+      return colorMap[baseColor]?.filled || 'text-gray-500';
+    } else if (fillLevel > 0) {
+      return colorMap[baseColor]?.filled || 'text-gray-500';
+    } else {
+      return colorMap[baseColor]?.empty || 'text-gray-200';
+    }
+  };
+
+  const getStarFill = (starIndex, rating) => {
+    const fillLevel = rating - starIndex;
+    if (fillLevel >= 1) return 1; // Full star
+    if (fillLevel > 0) return fillLevel; // Partial star
+    return 0; // Empty star
+  };
+
+  return (
+    <div className="flex">
+      {[...Array(5)].map((_, i) => {
+        const fillPercentage = getStarFill(i, rating);
+        const colorClass = getStarColor(i, rating, colors);
+        
+        return (
+          <div key={i} className="relative">
+            {fillPercentage > 0 && fillPercentage < 1 ? (
+              // Half star implementation
+              <div className="relative">
+                <svg className={`${size} text-gray-200 fill-current`} viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                </svg>
+                <div 
+                  className="absolute top-0 left-0 overflow-hidden"
+                  style={{ width: `${fillPercentage * 100}%` }}
+                >
+                  <svg className={`${size} ${colorClass} fill-current`} viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                </div>
+              </div>
+            ) : (
+              // Full or empty star
+              <svg className={`${size} ${colorClass} fill-current`} viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
 const StudentSuccessSection = () => {
+  const starColors = ['red', 'green', 'orange', 'blue', 'yellow'];
+  
   return (
     <div className="bg-white py-20 px-8">
       <div className="max-w-9xl mx-auto">
@@ -73,12 +152,8 @@ const StudentSuccessSection = () => {
           <div className="absolute -bottom-64 left-1/2 transform -translate-x-1/2 flex space-x-6 z-20">
             {/* Testimonial 1 */}
             <div className="bg-white rounded-2xl p-8 shadow-xl border border-gray-100 w-100">
-              <div className="flex mb-4">
-                {[...Array(5)].map((_, i) => (
-                  <svg key={i} className="w-5 h-5 text-orange-400 fill-current" viewBox="0 0 20 20">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                ))}
+              <div className="mb-4">
+                <FiveStars rating={5} colors={starColors} />
               </div>
               <p className="text-gray-700 mb-8 leading-relaxed text-base">
                 My experience with Lumina has been so special and my life is happier and more fulfilling because of it.
@@ -93,12 +168,8 @@ const StudentSuccessSection = () => {
 
             {/* Testimonial 2 */}
             <div className="bg-white rounded-2xl p-8 shadow-xl border border-gray-100 w-100">
-              <div className="flex mb-4">
-                {[...Array(5)].map((_, i) => (
-                  <svg key={i} className="w-5 h-5 text-orange-400 fill-current" viewBox="0 0 20 20">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                ))}
+              <div className="mb-4">
+                <FiveStars rating={4.5} colors={starColors} />
               </div>
               <p className="text-gray-700 mb-8 leading-relaxed text-base">
                 My therapist was extremely helpful and made sense of everything going on in my life to ease my anxiety. It is also a free service through our university where as therapy is normally an expense students cannot afford.
@@ -113,12 +184,8 @@ const StudentSuccessSection = () => {
 
             {/* Testimonial 3 */}
             <div className="bg-white rounded-2xl p-8 shadow-xl border border-gray-100 w-100">
-              <div className="flex mb-4">
-                {[...Array(5)].map((_, i) => (
-                  <svg key={i} className="w-5 h-5 text-orange-400 fill-current" viewBox="0 0 20 20">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                ))}
+              <div className="mb-4">
+                <FiveStars rating={4.8} colors={starColors} />
               </div>
               <p className="text-gray-700 mb-8 leading-relaxed text-base">
                 The conversations that I have with my therapist and the ways he helps lay out a plan to help improve my mental health are incredibly effective in getting me back to a sense of normalcy.
