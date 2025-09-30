@@ -56,26 +56,27 @@ const ResourcePreviewCard = ({ article, buttonColors = ['red', 'green', 'orange'
 };
 
 const MentalHealthResourcesPage = () => {
-  const [activeCategory, setActiveCategory] = useState('View all');
+  const [activeCategory, setActiveCategory] = useState('General');
   const buttonColors = ['red', 'green', 'orange', 'blue', 'yellow'];
 
   const categories = [
-    'View all',
-    'Anxiety Management', 
-    'Depression Support',
-    'Stress Relief',
-    'Mindfulness & Meditation',
-    'Therapy & Counseling',
-    'Self-Care',
-    'Sleep & Mental Health',
-    'Relationships',
-    'Trauma Recovery',
-    'Crisis Support'
+    { name: 'General', color: 'bg-gray-400' },
+    { name: 'Anxiety Management', color: 'bg-blue-500' },
+    { name: 'Depression Support', color: 'bg-purple-500' },
+    { name: 'Stress Relief', color: 'bg-green-500' },
+    { name: 'Mindfulness & Meditation', color: 'bg-teal-500' },
+    { name: 'Therapy & Counseling', color: 'bg-indigo-500' },
+    { name: 'Self-Care', color: 'bg-pink-500' },
+    { name: 'Sleep & Mental Health', color: 'bg-violet-500' },
+    { name: 'Relationships', color: 'bg-orange-500' },
+    { name: 'Trauma Recovery', color: 'bg-red-500' },
+    { name: 'Crisis Support', color: 'bg-yellow-600' }
   ];
+
 
   // Mental health articles for each category
   const articles = {
-    'View all': [
+    'General': [
       {
         id: 1,
         title: 'Understanding Your Mental Health Journey',
@@ -943,7 +944,7 @@ const MentalHealthResourcesPage = () => {
   const currentArticles = articles[activeCategory] || [];
   
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className="min-h-screen">
       <div className="max-w-7xl mx-auto px-6 py-8 mt-20">
         {/* Header Section */}
         <div className="mb-30">
@@ -982,25 +983,29 @@ const MentalHealthResourcesPage = () => {
         {/* Main Content Layout */}
         <div className="flex gap-8">
           {/* Left Sidebar - Sticky */}
-          <div className="w-64 flex-shrink-0">
-            <div className="sticky top-8">
-              <nav className="space-y-1">
+         <div className="w-64 flex-shrink-0">
+              <div className="space-y-4">
                 {categories.map((category) => (
                   <button
-                    key={category}
-                    onClick={() => setActiveCategory(category)}
-                    className={`block w-full text-left px-4 py-2 rounded-lg transition-colors hover:cursor-pointer ${
-                      activeCategory === category
-                        ? 'text-gray-900 font-medium bg-white shadow-sm'
-                        : 'text-gray-600 hover:text-gray-900 hover:bg-white hover:shadow-sm'
+                    key={category.name}
+                    onClick={() => setActiveCategory(category.name)}
+                    className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors   ${
+                      activeCategory === category.name
+                        ? 'bg-blue-100 text-blue-600'
+                        : 'text-gray-700 hover:bg-gray-50 bg-gray-100'
                     }`}
                   >
-                    {category}
+                    <div className={`w-3 h-3 rounded-full ${category.color}`}></div>
+                    <span className="text-sm font-medium">{category.name}</span>
+                    {activeCategory === category.name && (
+                      <svg className="w-4 h-4 ml-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    )}
                   </button>
                 ))}
-              </nav>
+              </div>
             </div>
-          </div>
 
           {/* Right Content Area - Scrollable */}
           <div className="flex-1">

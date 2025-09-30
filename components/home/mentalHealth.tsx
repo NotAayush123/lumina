@@ -54,13 +54,13 @@ const MentalHealth = () => {
             </div>
 
             {/* Manage Crises card */}
-            <div className="bg-green-400 rounded-2xl p-6 group hover:bg-blue-100 transition-colors cursor-pointer">
+            <div className="bg-green-400 rounded-2xl p-6 group hover:bg-blue-100 transition-colors cursor-pointer" onClick={() => window.location.href = '/support'}>
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-xl font-semibold text-gray-900">Support Community</h3>
                 <svg 
                   className="w-6 h-6 text-gray-400 group-hover:text-blue-600 transition-colors" 
                   fill="none" 
-                  stroke="currentColor" 
+                  stroke="currentColor"  
                   viewBox="0 0 24 24"
                 >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -72,9 +72,9 @@ const MentalHealth = () => {
             </div>
 
             {/* Promote Wellness card */}
-            <div className="bg-orange-400 rounded-2xl p-6 group hover:bg-blue-100 transition-colors cursor-pointer">
+            <div className="bg-orange-400 rounded-2xl p-6 group hover:bg-blue-100 transition-colors cursor-pointer" >
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-xl font-semibold text-gray-900">Blog</h3>
+                <h3 className="text-xl font-semibold text-gray-900">AI Therapist</h3>
                 <svg 
                   className="w-6 h-6 text-gray-400 group-hover:text-blue-600 transition-colors" 
                   fill="none" 
@@ -85,12 +85,12 @@ const MentalHealth = () => {
                 </svg>
               </div>
               <p className="text-gray-600">
-                Read our curated mental health blog articles for tips and insights.
+                Talk to our AI powered therapist for immediate help
               </p>
             </div>
 
             {/* Prevent Escalation card */}
-            <div className="bg-blue-400 rounded-2xl p-6 group hover:bg-blue-100 transition-colors cursor-pointer">
+            <div className="bg-blue-400 rounded-2xl p-6 group hover:bg-blue-100 transition-colors cursor-pointer" onClick={() => window.location.href = '/therapists'}>
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-xl font-semibold text-gray-900">Schedule Consultation</h3>
                 <svg 
