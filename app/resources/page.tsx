@@ -4,6 +4,7 @@
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import { articlesData, categories } from '../../lib/articles';
+import BackButton from '../../components/BackButton';
 
 // ResourcePreviewCard component
 const ResourcePreviewCard = ({ article, buttonColors = ['red', 'green', 'orange', 'blue', 'yellow'] }) => {
@@ -88,6 +89,8 @@ const MentalHealthResourcesPage = () => {
   return (
     <div className="min-h-screen">
       <div className="max-w-7xl mx-auto px-6 py-8 mt-20">
+        {/* Back Button */}
+        <BackButton href="/" label="Back to Home" className="mb-6" />
         {/* Header Section */}
         <div className="mb-30">
           {/* Badge */}

@@ -1,27 +1,53 @@
-// app/forum/page.js
+// app/support/page.tsx
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { 
   categories, 
   getAllDiscussions, 
   getCategoryColor 
 } from '../../lib/forum';
+import { getTotalCommentCount } from '../../lib/forumStorage';
+import BackButton from '../../components/BackButton';
 
 const MentalHealthForum = () => {
   const [selectedFilter, setSelectedFilter] = useState('View all');
   const [sortBy, setSortBy] = useState('Latest first');
   const [searchQuery, setSearchQuery] = useState('');
+  const [discussionsWithCounts, setDiscussionsWithCounts] = useState([]);
   const router = useRouter();
 
   const allDiscussions = getAllDiscussions();
 
+  // Update discussions with localStorage comment counts
+  useEffect(() => {
+    const updatedDiscussions = allDiscussions.map(discussion => ({
+      ...discussion,
+      comments: getTotalCommentCount(discussion.id.toString(), discussion.comments)
+    }));
+    setDiscussionsWithCounts(updatedDiscussions);
+  }, []);
+
+  // Refresh comment counts when returning to the page
+  useEffect(() => {
+    const handleFocus = () => {
+      const updatedDiscussions = allDiscussions.map(discussion => ({
+        ...discussion,
+        comments: getTotalCommentCount(discussion.id.toString(), discussion.comments)
+      }));
+      setDiscussionsWithCounts(updatedDiscussions);
+    };
+
+    window.addEventListener('focus', handleFocus);
+    return () => window.removeEventListener('focus', handleFocus);
+  }, [allDiscussions]);
+
   // Filter discussions based on selected category and search query
   const getFilteredDiscussions = () => {
     let filtered = selectedFilter === 'View all' 
-      ? allDiscussions 
-      : allDiscussions.filter(d => d.category === selectedFilter);
+      ? discussionsWithCounts 
+      : discussionsWithCounts.filter(d => d.category === selectedFilter);
     
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
@@ -48,13 +74,19 @@ const MentalHealthForum = () => {
     return 0;
   });
 
-  const handleDiscussionClick = (discussionId) => {
-    router.push(`/support/${discussionId}`);
+  const handleDiscussionClick = (discussionId: number) => {
+    try {
+      router.push(`/support/${discussionId}`);
+    } catch (error) {
+      console.error('Navigation error:', error);
+    }
   };
 
   return (
     <div className="min-h-screen">
       <div className="max-w-7xl mx-auto px-6 py-8 mt-20">
+        {/* Back Button */}
+        <BackButton href="/" label="Back to Home" className="mb-6" />
         {/* Header Section */}
         <div className="mb-30">
           {/* Badge */}
@@ -118,7 +150,10 @@ const MentalHealthForum = () => {
                 <div 
                   key={discussion.id}
                   className="border border-gray-200 rounded-2xl p-6 hover:shadow-md transition-shadow hover:cursor-pointer"
-                  onClick={() => handleDiscussionClick(discussion.id)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleDiscussionClick(discussion.id);
+                  }}
                 >
                   <div className="flex gap-4">
                     <div className="relative flex-shrink-0">
@@ -170,7 +205,7 @@ const MentalHealthForum = () => {
                         <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                         </svg>
-                        <span>{discussion.comments} Comments</span>
+                        <span>{discussion.comments} {discussion.comments === 1 ? 'Comment' : 'Comments'}</span>
                       </div>
                     </div>
                   </div>
@@ -227,7 +262,7 @@ const MentalHealthForum = () => {
                 <div className="space-y-2 text-sm text-gray-600">
                   <div className="flex justify-between">
                     <span>Total Discussions</span>
-                    <span className="font-medium">{allDiscussions.length}</span>
+                    <span className="font-medium">{discussionsWithCounts.length}</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Active Members</span>

@@ -1,41 +1,131 @@
-// app/forum/[id]/page.js
+// app/support/[id]/page.tsx
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, use } from 'react';
 import { useRouter } from 'next/navigation';
-import { ChevronLeft, Share2, Bookmark, Eye, MessageCircle } from 'lucide-react';
+import { ChevronLeft, Share2, Bookmark, Eye, MessageCircle, Heart } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import { 
   findDiscussionById, 
   getAllDiscussions,
-  getCategoryColor 
+  getCategoryColor,
+  users
 } from '../../../lib/forum';
+import { 
+  getForumStats, 
+  toggleCommentLike, 
+  isCommentLiked, 
+  getTotalCommentCount,
+  addUserComment,
+  getUserComments,
+  setCommentCount,
+  togglePostLike,
+  isPostLiked as checkPostLiked
+} from '../../../lib/forumStorage';
+import BackButton from '../../../components/BackButton';
 
-const DiscussionPage = ({ params }) => {
+const DiscussionPage = ({ params }: { params: Promise<{ id: string }> }) => {
   const [newComment, setNewComment] = useState('');
   const [isBookmarked, setIsBookmarked] = useState(false);
+  const [userComments, setUserComments] = useState<any[]>([]);
+  const [commentCount, setCommentCount] = useState(0);
+  const [likedComments, setLikedComments] = useState<{ [key: string]: boolean }>({});
+  const [isPostLiked, setIsPostLiked] = useState(false);
   const router = useRouter();
 
-  const discussion = findDiscussionById(params?.id || '1');
+  // Unwrap the params Promise
+  const resolvedParams = use(params);
+  
+  // Add error handling for discussion loading
+  let discussion;
+  let discussionId;
+  
+  try {
+    discussion = findDiscussionById(resolvedParams?.id || '1');
+    discussionId = discussion.id.toString();
+  } catch (error) {
+    console.error('Error loading discussion:', error);
+    // Fallback to first discussion
+    discussion = findDiscussionById('1');
+    discussionId = '1';
+  }
+  
   const allDiscussions = getAllDiscussions();
+
+  // Load data from localStorage on component mount
+  useEffect(() => {
+    const stats = getForumStats();
+    const userCommentsForDiscussion = getUserComments(discussionId);
+    const totalComments = getTotalCommentCount(discussionId, discussion.commentsData.length);
+    
+    setUserComments(userCommentsForDiscussion);
+    setCommentCount(totalComments);
+    setIsPostLiked(checkPostLiked(discussionId));
+    
+    // Load liked comments
+    const liked: { [key: string]: boolean } = {};
+    if (stats.likes[discussionId]) {
+      Object.keys(stats.likes[discussionId]).forEach(commentId => {
+        if (stats.likes[discussionId][commentId]) {
+          liked[commentId] = true;
+        }
+      });
+    }
+    setLikedComments(liked);
+  }, [discussionId, discussion.commentsData.length]);
 
   // Get related discussions (excluding current one)
   const relatedDiscussions = allDiscussions
     .filter(d => d.id !== discussion.id && d.category === discussion.category)
     .slice(0, 2);
 
-  const handleSubmitComment = (e) => {
+  const handleSubmitComment = (e: React.FormEvent) => {
     e.preventDefault();
     if (newComment.trim()) {
-      // Here you would typically send the comment to your backend
-      console.log('New comment:', newComment);
+      const newUserComment = {
+        id: Date.now(),
+        author: { 
+          id: 'user', 
+          name: 'You', 
+          initials: 'Y', 
+          color: 'bg-blue-500' 
+        },
+        timeAgo: 'Just now',
+        content: newComment,
+        likes: 0,
+        isUserComment: true
+      };
+      
+      addUserComment(discussionId, newUserComment);
+      setUserComments([...userComments, newUserComment]);
+      setCommentCount(commentCount + 1);
       setNewComment('');
-      // You might want to refresh the comments here
     }
   };
 
-  const navigateToDiscussion = (discussionId) => {
+  const handleLikeComment = (commentId: number) => {
+    const isLiked = toggleCommentLike(discussionId, commentId.toString());
+    setLikedComments(prev => ({
+      ...prev,
+      [commentId.toString()]: isLiked
+    }));
+  };
+
+  const handleLikePost = () => {
+    const isLiked = togglePostLike(discussionId);
+    setIsPostLiked(isLiked);
+  };
+
+  const navigateToDiscussion = (discussionId: number) => {
     router.push(`/support/${discussionId}`);
   };
+
+  // Combine original comments with user comments
+  const allComments = [...discussion.commentsData, ...userComments].sort((a, b) => {
+    // Sort by time (newest first) - this is simplified for demo
+    return b.id - a.id;
+  });
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -43,13 +133,7 @@ const DiscussionPage = ({ params }) => {
       <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
         <div className="max-w-5xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
-            <button 
-              onClick={() => router.push('/support')}
-              className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors"
-            >
-              <ChevronLeft className="w-5 h-5" />
-              <span>Back to Forum</span>
-            </button>
+            <BackButton href="/support" label="Back to Forum" />
             <div className="flex items-center space-x-4">
               <button 
                 onClick={() => setIsBookmarked(!isBookmarked)}
@@ -94,20 +178,33 @@ const DiscussionPage = ({ params }) => {
               </div>
               <div className="flex items-center space-x-2">
                 <MessageCircle className="w-5 h-5" />
-                <span>{discussion.comments} comments</span>
+                <span>{commentCount} comments</span>
               </div>
+              <button 
+                onClick={handleLikePost}
+                className={`flex items-center space-x-2 transition-colors ${
+                  isPostLiked 
+                    ? 'text-red-600 hover:text-red-700' 
+                    : 'text-gray-500 hover:text-red-600'
+                }`}
+              >
+                <Heart className={`w-5 h-5 ${isPostLiked ? 'fill-current' : ''}`} />
+                <span>{isPostLiked ? 'Liked' : 'Like'}</span>
+              </button>
             </div>
           </div>
           
-          <div className="prose max-w-none text-gray-700 whitespace-pre-line">
-            {discussion.content}
+          <div className="prose max-w-none text-gray-700">
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              {discussion.content}
+            </ReactMarkdown>
           </div>
         </div>
 
         {/* Comments Section */}
         <div className="bg-white rounded-2xl p-8 shadow-sm">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">
-            Comments ({discussion.commentsData.length})
+            Comments ({commentCount})
           </h2>
           
           {/* New Comment Box */}
@@ -117,7 +214,7 @@ const DiscussionPage = ({ params }) => {
               onChange={(e) => setNewComment(e.target.value)}
               placeholder="Share your thoughts or experiences..."
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
-              rows="4"
+              rows={4}
             />
             <div className="flex justify-end mt-3">
               <button 
@@ -132,7 +229,7 @@ const DiscussionPage = ({ params }) => {
 
           {/* Comments List */}
           <div className="space-y-6">
-            {discussion.commentsData.map((comment) => (
+            {allComments.map((comment) => (
               <div key={comment.id} className="border-b border-gray-200 pb-6 last:border-0">
                 <div className="flex gap-4">
                   <div className={`w-10 h-10 ${comment.author.color} rounded-full flex items-center justify-center text-white font-semibold flex-shrink-0`}>
@@ -144,6 +241,11 @@ const DiscussionPage = ({ params }) => {
                       <div>
                         <span className="font-medium text-gray-900">{comment.author.name}</span>
                         <span className="text-sm text-gray-500 ml-2">{comment.timeAgo}</span>
+                        {comment.isUserComment && (
+                          <span className="ml-2 text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full">
+                            You
+                          </span>
+                        )}
                       </div>
                       
                       <button className="text-gray-400 hover:text-gray-600">
@@ -153,14 +255,23 @@ const DiscussionPage = ({ params }) => {
                       </button>
                     </div>
                     
-                    <p className="text-gray-700 mb-3 whitespace-pre-line">{comment.content}</p>
+                    <div className="prose prose-sm max-w-none text-gray-700 mb-3">
+                      <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                        {comment.content}
+                      </ReactMarkdown>
+                    </div>
                     
                     <div className="flex items-center space-x-4">
-                      <button className="flex items-center space-x-2 text-sm text-gray-500 hover:text-blue-600 transition-colors">
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
-                        </svg>
-                        <span>{comment.likes} likes</span>
+                      <button 
+                        onClick={() => handleLikeComment(comment.id)}
+                        className={`flex items-center space-x-2 text-sm transition-colors ${
+                          likedComments[comment.id.toString()] 
+                            ? 'text-red-600 hover:text-red-700' 
+                            : 'text-gray-500 hover:text-red-600'
+                        }`}
+                      >
+                        <Heart className={`w-4 h-4 ${likedComments[comment.id.toString()] ? 'fill-current' : ''}`} />
+                        <span>{comment.likes + (likedComments[comment.id.toString()] ? 1 : 0)} likes</span>
                       </button>
                       <button className="text-sm text-gray-500 hover:text-blue-600 transition-colors">
                         Reply
@@ -172,7 +283,7 @@ const DiscussionPage = ({ params }) => {
             ))}
 
             {/* No comments message */}
-            {discussion.commentsData.length === 0 && (
+            {allComments.length === 0 && (
               <div className="text-center py-8">
                 <MessageCircle className="w-12 h-12 text-gray-300 mx-auto mb-4" />
                 <p className="text-gray-500">No comments yet. Be the first to share your thoughts!</p>

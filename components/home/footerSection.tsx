@@ -1,6 +1,10 @@
+"use client";
+
 import React from 'react';
+import { useRouter } from 'next/navigation';
 
 const FooterSection = () => {
+  const router = useRouter();
   return (
     <footer className="bg-blue-950 text-white">
       {/* Hero Section */}
@@ -17,7 +21,10 @@ const FooterSection = () => {
           <p className="text-gray-800 text-lg font-medium">
             Book an appointment with a licensed therapist today!
           </p>
-          <button className="bg-blue-600 text-white px-8 py-4 rounded-full font-medium hover:bg-blue-700 transition-colors ml-8">
+          <button 
+            onClick={() => router.push('/therapists')}
+            className="bg-blue-600 text-white px-8 py-4 rounded-full font-medium hover:bg-blue-700 transition-colors ml-8"
+          >
             Get in Touch
           </button>
         </div>
@@ -38,12 +45,44 @@ const FooterSection = () => {
               {/* Social Icons */}
               {/* Navigation Links */}
           <div className="space-x-8">
-            <a href="#" className="text-gray-300 hover:text-white transition-colors">About</a>
-            <a href="#" className="text-gray-300 hover:text-white transition-colors">Our Solutions</a>
-            <a href="#" className="text-gray-300 hover:text-white transition-colors">Careers</a>
-            <a href="#" className="text-gray-300 hover:text-white transition-colors">For Providers</a>
-            <a href="#" className="text-gray-300 hover:text-white transition-colors">FAQ</a>
-            <a href="#" className="text-gray-300 hover:text-white transition-colors">Blog</a>
+            <button 
+              onClick={() => router.push('/')}
+              className="text-gray-300 hover:text-white transition-colors"
+            >
+              About
+            </button>
+            <button 
+              onClick={() => router.push('/resources')}
+              className="text-gray-300 hover:text-white transition-colors"
+            >
+              Our Solutions
+            </button>
+            <button 
+              onClick={() => router.push('/therapists')}
+              className="text-gray-300 hover:text-white transition-colors"
+            >
+              Therapists
+            </button>
+            <button 
+              onClick={() => router.push('/support')}
+              className="text-gray-300 hover:text-white transition-colors"
+            >
+              Support Community
+            </button>
+            <a 
+              href="https://www.mentalhealth.gov/get-help/immediate-help" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-gray-300 hover:text-white transition-colors"
+            >
+              Crisis Help
+            </a>
+            <button 
+              onClick={() => router.push('/resources')}
+              className="text-gray-300 hover:text-white transition-colors"
+            >
+              Resources
+            </button>
           </div>
             </div>
 
@@ -79,9 +118,14 @@ const FooterSection = () => {
 
               {/* Crisis Resources Button */}
               <div className="text-center md:text-right">
-                <button className="bg-red-500 text-white px-6 py-3 rounded-full font-medium hover:bg-red-600 transition-colors">
+                <a 
+                  href="https://www.mentalhealth.gov/get-help/immediate-help" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="bg-red-500 text-white px-6 py-3 rounded-full font-medium hover:bg-red-600 transition-colors inline-block"
+                >
                   Crisis Resources
-                </button>
+                </a>
               </div>
             </div>
           </div>

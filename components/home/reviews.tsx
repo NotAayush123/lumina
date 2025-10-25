@@ -1,4 +1,7 @@
+"use client";
+
 import React from 'react';
+import { useRouter } from 'next/navigation';
 
 const FiveStars = ({ 
   rating = 5, 
@@ -78,6 +81,7 @@ const FiveStars = ({
 };
 
 const StudentSuccessSection = () => {
+  const router = useRouter();
   const starColors = ['red', 'green', 'orange', 'blue', 'yellow'];
   
   return (
@@ -142,7 +146,10 @@ const StudentSuccessSection = () => {
 
             {/* Get In Touch button */}
             <div className="text-center">
-              <button className="bg-blue-600 text-white px-10 py-4 rounded-full text-lg font-medium hover:bg-blue-700 transition-colors shadow-lg">
+              <button 
+                onClick={() => router.push('/therapists')}
+                className="bg-blue-600 text-white px-10 py-4 rounded-full text-lg font-medium hover:bg-blue-700 transition-colors shadow-lg"
+              >
                 Get In Touch
               </button>
             </div>

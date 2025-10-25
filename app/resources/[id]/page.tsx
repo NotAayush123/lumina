@@ -1,20 +1,24 @@
 // app/resources/[id]/page.js
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, use } from 'react';
 import { ChevronLeft, Clock, User, Calendar, Share2, Bookmark, ArrowUp } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
 import { findArticleById, getAllArticles, articlesData } from '../../../lib/articles';
+import BackButton from '../../../components/BackButton';
 
-const ArticlePage = ({ params }) => {
+const ArticlePage = ({ params }: { params: Promise<{ id: string }> }) => {
   const [article, setArticle] = useState(null);
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const router = useRouter();
 
+  // Unwrap the params Promise
+  const resolvedParams = use(params);
+
   useEffect(() => {
-    const articleId = params?.id || '1';
+    const articleId = resolvedParams?.id || '1';
     const foundArticle = findArticleById(articleId);
     setArticle(foundArticle);
 
@@ -24,7 +28,7 @@ const ArticlePage = ({ params }) => {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [params?.id]);
+  }, [resolvedParams?.id]);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -54,13 +58,7 @@ const ArticlePage = ({ params }) => {
       <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
         <div className="max-w-4xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
-            <button 
-              onClick={() => router.push('/resources')}
-              className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors"
-            >
-              <ChevronLeft className="w-5 h-5" />
-              <span>Back to Resources</span>
-            </button>
+            <BackButton href="/resources" label="Back to Resources" />
             <div className="flex items-center space-x-4">
               <button 
                 onClick={() => setIsBookmarked(!isBookmarked)}

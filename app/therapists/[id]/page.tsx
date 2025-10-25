@@ -1,16 +1,19 @@
 // app/therapists/[id]/page.js
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, use } from 'react';
 import { useRouter } from 'next/navigation';
 import { ChevronLeft, MapPin, DollarSign, Clock, Award, CheckCircle } from 'lucide-react';
 import { findTherapistById, getTherapistInitials } from '../../../lib/therapists';
+import BackButton from '../../../components/BackButton';
 
-const TherapistProfilePage = ({ params }) => {
+const TherapistProfilePage = ({ params }: { params: Promise<{ id: string }> }) => {
   const [activeTab, setActiveTab] = useState('My Approach');
   const router = useRouter();
 
-  const therapist = findTherapistById(params?.id || '1');
+  // Unwrap the params Promise
+  const resolvedParams = use(params);
+  const therapist = findTherapistById(resolvedParams?.id || '1');
 
   const tabs = ['My Approach', 'My Practice', 'Fees', 'Location'];
 
@@ -26,13 +29,7 @@ const TherapistProfilePage = ({ params }) => {
       {/* Main Content */}
       <div className="relative z-10 max-w-6xl mx-auto px-6 py-8">
         {/* Back Button */}
-        <button 
-          onClick={() => router.push('/therapists')}
-          className="flex items-center space-x-2 text-blue-600 hover:text-blue-700 mb-8"
-        >
-          <ChevronLeft className="w-5 h-5" />
-          <span className="font-medium">Back to results</span>
-        </button>
+        <BackButton href="/therapists" label="Back to results" className="mb-8" />
 
         {/* Header Section */}
         <div className="bg-white rounded-3xl shadow-sm p-8 mb-6">

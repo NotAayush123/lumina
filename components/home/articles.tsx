@@ -1,18 +1,54 @@
+"use client";
+
 import React from 'react';
+import { useRouter } from 'next/navigation';
+import { articlesData } from '../../lib/articles';
 
 const EventsResourcesGrid = () => {
+  const router = useRouter();
+  
+  // Get featured articles (first 5 articles from different categories)
+  const featuredArticles = [
+    articlesData['General'][0], // Understanding Your Mental Health Journey
+    articlesData['Anxiety Management'][0], // Managing Anxiety in Daily Life
+    articlesData['Self-Care'][0], // The Importance of Self-Care
+    articlesData['Therapy & Counseling'][0], // What to Expect from Your First Therapy Session
+    articlesData['Mindfulness & Meditation'][0], // Mindful Breathing for Everyday Calm
+  ];
+
+  const handleArticleClick = (articleId: number) => {
+    router.push(`/resources/${articleId}`);
+  };
+
+  const getBadgeColor = (index: number) => {
+    const colors = [
+      'bg-red-100 text-red-600',
+      'bg-green-100 text-green-600', 
+      'bg-blue-100 text-blue-600',
+      'bg-yellow-100 text-yellow-600',
+      'bg-orange-100 text-orange-600',
+      'bg-pink-100 text-pink-600',
+      'bg-teal-100 text-teal-600',
+      'bg-indigo-100 text-indigo-600'
+    ];
+    return colors[index % colors.length];
+  };
+
   return (
     <div className="bg-gray-50 px-8 py-16 mt-20">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-12">
-          <h2 className="text-4xl font-bold text-gray-900">Events and Resources</h2>
-          <a href="#" className="text-blue-600 font-medium text-lg hover:underline flex items-center">
+          <h2 className="text-4xl font-bold text-gray-900">Mental Health Resources</h2>
+          <button 
+            onClick={() => router.push('/resources')}
+            className="text-blue-600 font-medium text-lg hover:underline flex items-center hover:text-blue-700 transition-colors"
+          >
             View All 
             <svg className="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
-          </a>
+          </button>
         </div>
 
         {/* Large Featured Card */}
@@ -69,16 +105,19 @@ const EventsResourcesGrid = () => {
             {/* Overlapping content card - bigger */}
             <div className="absolute -bottom-12 -right-90 z-10 bg-white rounded-2xl p-8 shadow-xl max-w-lg w-120">
               <div className="mb-4">
-                <span className="bg-blue-100 text-blue-600 px-4 py-2 rounded-full text-base font-medium">Webinar</span>
-                <span className="ml-3 text-gray-500 text-base">Jun 11 2025 at 3:00 EST</span>
+                <span className={`${getBadgeColor(0)} px-4 py-2 rounded-full text-base font-medium`}>Resource</span>
+                <span className="ml-3 text-gray-500 text-base">{featuredArticles[0].date}</span>
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-3 leading-tight">
-                Addressing Gaps in Postvention Best Practices
+                {featuredArticles[0].title}
               </h3>
               <p className="text-gray-600 text-base mb-6 leading-relaxed">
-                A critical discussion for higher education leaders
+                {featuredArticles[0].description}
               </p>
-              <button className="bg-blue-600 text-white px-8 py-3 rounded-full text-base font-medium hover:bg-blue-700 transition-colors  hover:cursor-pointer">
+              <button 
+                onClick={() => handleArticleClick(featuredArticles[0].id)}
+                className="bg-blue-600 text-white px-8 py-3 rounded-full text-base font-medium hover:bg-blue-700 transition-colors hover:cursor-pointer"
+              >
                 Read More
               </button>
             </div>
@@ -87,83 +126,45 @@ const EventsResourcesGrid = () => {
 
         {/* Bottom Row - 4 Cards */}
         <div className="grid grid-cols-4 gap-6">
-          {/* Card 1 */}
-          <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow">
-            <div className="bg-gradient-to-br from-yellow-200 to-orange-200 h-42 p-4 relative">
-              {/* Simple illustration placeholder */}
-              <div className="absolute bottom-2 left-4 w-16 h-8 bg-orange-300 rounded-full"></div>
-              <div className="absolute bottom-4 right-4 w-8 h-12 bg-red-300 rounded-t-full"></div>
-            </div>
-            <div className="p-5">
-              <div className="mb-2">
-                <span className="bg-blue-100 text-blue-600 px-2 py-1 rounded text-sm font-medium">Webinar</span>
-                <span className="ml-2 text-gray-400 text-md">Sep 9 2025</span>
+          {featuredArticles.slice(1, 5).map((article, index) => (
+            <div 
+              key={article.id}
+              onClick={() => handleArticleClick(article.id)}
+              className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow cursor-pointer"
+            >
+              <div className={`bg-gradient-to-br ${getGradientColor(index)} h-42 p-4 relative`}>
+                {/* Simple illustration placeholder */}
+                <div className="absolute bottom-2 left-4 w-16 h-8 bg-orange-300 rounded-full"></div>
+                <div className="absolute bottom-4 right-4 w-8 h-12 bg-red-300 rounded-t-full"></div>
               </div>
-              <h4 className="font-bold text-gray-900 text-lg leading-tight">
-                Surviving and Thriving: Mental Health in the Face of Basic Nee...
-              </h4>
-            </div>
-          </div>
-
-          {/* Card 2 */}
-          <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow">
-            <div className="bg-gradient-to-br from-blue-200 to-purple-200 h-42  p-4 relative">
-              {/* People illustration */}
-              <div className="absolute bottom-2 left-4 w-6 h-16 bg-orange-400 rounded-t-full"></div>
-              <div className="absolute bottom-2 left-8 w-6 h-18 bg-blue-600 rounded-t-full"></div>
-              <div className="absolute bottom-2 right-4 w-8 h-8 bg-pink-300 rounded-full"></div>
-            </div>
-            <div className="p-5">
-              <div className="mb-2">
-                <span className="bg-green-100 text-green-600 px-2 py-1 rounded text-sm font-medium">Resource</span>
-                <span className="ml-2 text-gray-400 text-md">Aug 8 2025</span>
+              <div className="p-5">
+                <div className="mb-2">
+                  <span className={`${getBadgeColor(index + 1)} px-2 py-1 rounded text-sm font-medium`}>Resource</span>
+                  <span className="ml-2 text-gray-400 text-md">{article.date}</span>
+                </div>
+                <h4 className="font-bold text-gray-900 text-lg leading-tight mb-2">
+                  {article.title.length > 50 ? `${article.title.substring(0, 50)}...` : article.title}
+                </h4>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  {article.description.length > 80 ? `${article.description.substring(0, 80)}...` : article.description}
+                </p>
               </div>
-              <h4 className="font-bold text-gray-900 text-lg leading-tight">
-                Navigating Mental Health Conversations with Care
-              </h4>
             </div>
-          </div>
-
-          {/* Card 3 */}
-          <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow">
-            <div className="bg-gradient-to-br from-gray-800 to-blue-900 h-42  p-4 relative">
-              {/* Light bulb and person */}
-              <div className="absolute top-4 left-4 w-8 h-8 bg-yellow-400 rounded-full"></div>
-              <div className="absolute bottom-2 right-6 w-6 h-14 bg-pink-400 rounded-t-full"></div>
-            </div>
-            <div className="p-5">
-              <div className="mb-2">
-                <span className="bg-green-100 text-green-600 px-2 py-1 rounded text-sm font-medium">Resource</span>
-                <span className="ml-2 text-gray-400 text-md">Jul 11 2025</span>
-              </div>
-              <h4 className="font-bold text-gray-900 text-lg leading-tight">
-                Collaborating with Students on Mental Health Promotion
-              </h4>
-            </div>
-          </div>
-
-          {/* Card 4 */}
-          <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow">
-            <div className="bg-gradient-to-br from-green-200 to-teal-200 h-42  p-4 relative">
-              {/* Person with magnifying glass */}
-              <div className="absolute bottom-2 left-4 w-6 h-12 bg-orange-400 rounded-t-full"></div>
-              <div className="absolute top-4 right-4 w-8 h-8 border-4 border-gray-600 rounded-full"></div>
-              <div className="absolute top-8 right-2 w-4 h-1 bg-gray-600 transform rotate-45"></div>
-            </div>
-            <div className="p-5">
-              <div className="mb-2">
-                <span className="bg-blue-100 text-blue-600 px-2 py-1 rounded text-sm font-medium">Webinar</span>
-                <span className="ml-2 text-gray-400 text-md">Jun 2 2025</span>
-              </div>
-              <h4 className="font-bold text-gray-900 text-lg leading-tight">
-                Integrating Mental Health Initiatives into Student...
-              </h4>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </div>
   );
+};
+
+const getGradientColor = (index: number) => {
+  const gradients = [
+    'from-yellow-200 to-orange-200',
+    'from-blue-200 to-purple-200', 
+    'from-gray-800 to-blue-900',
+    'from-green-200 to-teal-200'
+  ];
+  return gradients[index % gradients.length];
 };
 
 export default EventsResourcesGrid;

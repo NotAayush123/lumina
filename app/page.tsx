@@ -14,9 +14,13 @@ export default function Home() {
    <HeroSection/>
     <InfiniteCards />
  
-    <MentalHealth />
+    <div id="about">
+      <MentalHealth />
+    </div>
        
-    <StudentSuccessSection  />
+    <div id="reviews">
+      <StudentSuccessSection  />
+    </div>
      <EventsResourcesGrid />
  
    
