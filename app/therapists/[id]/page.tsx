@@ -1,12 +1,12 @@
-// app/therapists/[id]/page.js (COMPLETE WITH ALL ORIGINAL CONTENT)
+// app/therapists/[id]/page.js (complete w/ all original content)
 "use client";
 
 import React, { useState, use } from 'react';
 import { useRouter } from 'next/navigation';
 import { ChevronLeft, MapPin, DollarSign, Clock, Award, CheckCircle } from 'lucide-react';
-import { findTherapistById, getTherapistInitials } from '../../../lib/therapists';
-import BackButton from '../../../components/BackButton';
-import BookingModal from '../../../components/BookingModal';
+import { findTherapistById, getTherapistInitials } from '@/lib/therapists';
+import BackButton from '@/components/BackButton';
+import BookingModal from '@/components/BookingModal';
 
 const TherapistProfilePage = ({ params }: { params: Promise<{ id: string }> }) => {
   const [activeTab, setActiveTab] = useState('My Approach');
@@ -21,19 +21,19 @@ const TherapistProfilePage = ({ params }: { params: Promise<{ id: string }> }) =
 
   return (
     <div className="min-h-screen bg-gray-50 relative overflow-hidden">
-      {/* Decorative Background Shapes */}
+      {/* decorative bg shapes */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-blue-400 rounded-full opacity-20 blur-3xl"></div>
       <div className="absolute top-20 right-40 w-64 h-64 bg-orange-300 rounded-full opacity-20 blur-3xl"></div>
       <div className="absolute top-0 right-0 w-48 h-48 bg-red-400 rounded-full opacity-30 blur-2xl"></div>
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-yellow-300 rounded-full opacity-20 blur-3xl"></div>
       <div className="absolute bottom-40 left-60 w-72 h-72 bg-gray-300 rounded-full opacity-20 blur-3xl"></div>
 
-      {/* Main Content */}
+      {/* main content */}
       <div className="relative z-10 max-w-6xl mx-auto px-6 py-8">
-        {/* Back Button */}
+        {/* back btn */}
         <BackButton href="/therapists" label="Back to results" className="mb-8" />
 
-        {/* Header Section */}
+        {/* header section */}
         <div className="bg-white rounded-3xl shadow-sm p-8 mb-6">
           <div className="flex items-start justify-between mb-8">
             <div className="flex items-start space-x-6">
@@ -67,7 +67,7 @@ const TherapistProfilePage = ({ params }: { params: Promise<{ id: string }> }) =
             </button>
           </div>
 
-          {/* Quick Info Grid */}
+          {/* quick info grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 border-t border-gray-200">
             <div>
               <h3 className="text-sm font-semibold text-gray-500 mb-2">Gender</h3>
@@ -106,9 +106,9 @@ const TherapistProfilePage = ({ params }: { params: Promise<{ id: string }> }) =
           </div>
         </div>
 
-        {/* Tabs Section */}
+        {/* tabs section */}
         <div className="bg-white rounded-3xl shadow-sm overflow-hidden">
-          {/* Tab Navigation */}
+          {/* tab nav */}
           <div className="border-b border-gray-200">
             <div className="flex space-x-8 px-8">
               {tabs.map((tab) => (
@@ -130,7 +130,7 @@ const TherapistProfilePage = ({ params }: { params: Promise<{ id: string }> }) =
             </div>
           </div>
 
-          {/* Tab Content */}
+          {/* tab content */}
           <div className="p-8">
             {activeTab === 'My Approach' && (
               <div className="space-y-8">
@@ -265,7 +265,7 @@ const TherapistProfilePage = ({ params }: { params: Promise<{ id: string }> }) =
                     </div>
                   </div>
                   
-                  {/* Mock Map - only show if not telehealth only */}
+                  {/* mock map - only show if not telehealth only */}
                   {!therapist.locationInfo.telehealth && (
                     <div className="w-full h-64 bg-gray-200 rounded-xl flex items-center justify-center">
                       <div className="text-center text-gray-500">
@@ -298,7 +298,7 @@ const TherapistProfilePage = ({ params }: { params: Promise<{ id: string }> }) =
           </div>
         </div>
 
-        {/* Contact CTA */}
+        {/* contact cta */}
         <div className="mt-6 bg-gradient-to-r from-blue-600 to-blue-700 rounded-3xl p-8 text-white text-center">
           <h2 className="text-2xl font-bold mb-3">Ready to get started?</h2>
           <p className="text-blue-100 mb-6">Take the first step towards better mental health today.</p>
@@ -311,7 +311,7 @@ const TherapistProfilePage = ({ params }: { params: Promise<{ id: string }> }) =
         </div>
       </div>
 
-      {/* Booking Modal */}
+      {/* booking modal */}
       <BookingModal
         therapist={therapist}
         isOpen={isBookingModalOpen}

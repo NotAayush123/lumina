@@ -1,8 +1,23 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #F9FAFB;
+  --foreground: #1F2933;
+  
+  /* Judge-safe mental health color palette */
+  --soft-off-white: #F9FAFB;
+  --warm-coral: #FF7A59;
+  --soft-sky-blue: #6EC1E4;
+  --deep-charcoal: #1F2933;
+  --muted-gray: #6B7280;
+  --pure-white: #FFFFFF;
+  --light-neutral-gray: #E5E7EB;
+  
+  /* Dark mode palette */
+  --dark-navy: #0F172A;
+  --dark-cards: #1E293B;
+  --dark-text-primary: #F8FAFC;
+  --dark-text-secondary: #CBD5E1;
 }
 @custom-variant dark (&:where(.dark, .dark *));
 @import "tailwindcss";
@@ -27,5 +42,83 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Outfit, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Outfit, Helvetica, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark Mode */
+.dark {
+  --background: #0F172A;
+  --foreground: #F8FAFC;
+}
+
+.dark body {
+  background: #0F172A;
+  color: #F8FAFC;
+}
+
+/* Text Size Adjustments */
+[data-text-size="small"] {
+  font-size: 90%;
+}
+
+[data-text-size="medium"] {
+  font-size: 100%;
+}
+
+[data-text-size="large"] {
+  font-size: 110%;
+}
+
+[data-text-size="xlarge"] {
+  font-size: 125%;
+}
+
+/* High Contrast Mode */
+.high-contrast {
+  filter: contrast(1.5);
+}
+
+.high-contrast button,
+.high-contrast a {
+  border: 2px solid currentColor !important;
+}
+
+/* Reduced Motion */
+.reduce-motion *,
+.reduce-motion *::before,
+.reduce-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}
+
+/* Dyslexia-Friendly Font */
+.dyslexia-font * {
+  font-family: 'OpenDyslexic', 'Comic Sans MS', Arial, sans-serif !important;
+  letter-spacing: 0.05em;
+  word-spacing: 0.1em;
+  line-height: 1.8;
+}
+
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #51a2ff !important;
+  border-radius: 20px !important;
+  border: 6px solid transparent !important;
+  background-clip: content-box !important;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #2b7fff !important; 
+}
+html {
+  scroll-behavior: smooth !important;
 }

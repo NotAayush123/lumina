@@ -11,7 +11,7 @@ import {
   getAllDiscussions,
   getCategoryColor,
   users
-} from '../../../lib/forum';
+} from '@/lib/forum';
 import { 
   getForumStats, 
   toggleCommentLike, 
@@ -22,8 +22,8 @@ import {
   setCommentCount,
   togglePostLike,
   isPostLiked as checkPostLiked
-} from '../../../lib/forumStorage';
-import BackButton from '../../../components/BackButton';
+} from '@/lib/forumStorage';
+import BackButton from '@/components/BackButton';
 
 const DiscussionPage = ({ params }: { params: Promise<{ id: string }> }) => {
   const [newComment, setNewComment] = useState('');
@@ -53,7 +53,7 @@ const DiscussionPage = ({ params }: { params: Promise<{ id: string }> }) => {
   
   const allDiscussions = getAllDiscussions();
 
-  // Load data from localStorage on component mount
+  // load data from localStorage on component mount
   useEffect(() => {
     const stats = getForumStats();
     const userCommentsForDiscussion = getUserComments(discussionId);
@@ -63,7 +63,7 @@ const DiscussionPage = ({ params }: { params: Promise<{ id: string }> }) => {
     setCommentCount(totalComments);
     setIsPostLiked(checkPostLiked(discussionId));
     
-    // Load liked comments
+    // load liked comments
     const liked: { [key: string]: boolean } = {};
     if (stats.likes[discussionId]) {
       Object.keys(stats.likes[discussionId]).forEach(commentId => {
@@ -75,7 +75,7 @@ const DiscussionPage = ({ params }: { params: Promise<{ id: string }> }) => {
     setLikedComments(liked);
   }, [discussionId, discussion.commentsData.length]);
 
-  // Get related discussions (excluding current one)
+  // get related discussions (excluding current one)
   const relatedDiscussions = allDiscussions
     .filter(d => d.id !== discussion.id && d.category === discussion.category)
     .slice(0, 2);
@@ -121,15 +121,15 @@ const DiscussionPage = ({ params }: { params: Promise<{ id: string }> }) => {
     router.push(`/support/${discussionId}`);
   };
 
-  // Combine original comments with user comments
+  // combine original comments w/ user comments
   const allComments = [...discussion.commentsData, ...userComments].sort((a, b) => {
-    // Sort by time (newest first) - this is simplified for demo
+    // sort by time (newest first) - simplified for demo
     return b.id - a.id;
   });
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Navigation Bar */}
+      {/* nav bar */}
       <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
         <div className="max-w-5xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
@@ -149,9 +149,9 @@ const DiscussionPage = ({ params }: { params: Promise<{ id: string }> }) => {
         </div>
       </nav>
 
-      {/* Main Content */}
+      {/* main content */}
       <div className="max-w-5xl mx-auto px-6 py-8">
-        {/* Discussion Header */}
+        {/* discussion header */}
         <div className="bg-white rounded-2xl p-8 shadow-sm mb-6">
           <div className="flex items-center space-x-3 mb-4">
             <div className={`w-3 h-3 rounded-full ${getCategoryColor(discussion.category)}`}></div>

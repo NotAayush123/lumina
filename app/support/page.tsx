@@ -7,9 +7,9 @@ import {
   categories, 
   getAllDiscussions, 
   getCategoryColor 
-} from '../../lib/forum';
-import { getTotalCommentCount } from '../../lib/forumStorage';
-import BackButton from '../../components/BackButton';
+} from '@/lib/forum';
+import { getTotalCommentCount } from '@/lib/forumStorage';
+import BackButton from '@/components/BackButton';
 
 const MentalHealthForum = () => {
   const [selectedFilter, setSelectedFilter] = useState('View all');
@@ -20,7 +20,7 @@ const MentalHealthForum = () => {
 
   const allDiscussions = getAllDiscussions();
 
-  // Update discussions with localStorage comment counts
+  // update discussions w/ localStorage comment counts
   useEffect(() => {
     const updatedDiscussions = allDiscussions.map(discussion => ({
       ...discussion,
@@ -29,7 +29,7 @@ const MentalHealthForum = () => {
     setDiscussionsWithCounts(updatedDiscussions);
   }, []);
 
-  // Refresh comment counts when returning to the page
+  // refresh comment counts when returning to page
   useEffect(() => {
     const handleFocus = () => {
       const updatedDiscussions = allDiscussions.map(discussion => ({
@@ -43,7 +43,7 @@ const MentalHealthForum = () => {
     return () => window.removeEventListener('focus', handleFocus);
   }, [allDiscussions]);
 
-  // Filter discussions based on selected category and search query
+  // filter discussions based on cat & search query
   const getFilteredDiscussions = () => {
     let filtered = selectedFilter === 'View all' 
       ? discussionsWithCounts 
@@ -64,7 +64,7 @@ const MentalHealthForum = () => {
 
   const filteredDiscussions = getFilteredDiscussions();
 
-  // Sort discussions
+  // sort discussions
   const sortedDiscussions = [...filteredDiscussions].sort((a, b) => {
     if (sortBy === 'Latest first') {
       return b.id - a.id;
@@ -85,11 +85,11 @@ const MentalHealthForum = () => {
   return (
     <div className="min-h-screen">
       <div className="max-w-7xl mx-auto px-6 py-8 mt-20">
-        {/* Back Button */}
+        {/* back btn */}
         <BackButton href="/" label="Back to Home" className="mb-6" />
-        {/* Header Section */}
+        {/* header section */}
         <div className="mb-30">
-          {/* Badge */}
+          {/* badge */}
           <div className="mb-6">
             <span className="bg-white border border-gray-300 rounded-full px-4 py-2 text-sm text-gray-700 inline-flex items-center">
               New mental health discussions →
@@ -97,7 +97,7 @@ const MentalHealthForum = () => {
           </div>
 
           <div className="flex justify-between items-start">
-            {/* Left side - Title and description */}
+            {/* left - title & desc */}
             <div className="max-w-xl">
               <h1 className="text-5xl font-bold text-black mb-6">
                 Mental Health Forums
@@ -106,7 +106,7 @@ const MentalHealthForum = () => {
                 Connect with others, share experiences, and find support in our caring community. Your mental health journey matters.
               </p>
               
-              {/* Search */}
+              {/* search */}
               <div className="flex gap-3">
                 <input 
                   type="text" 
@@ -144,7 +144,7 @@ const MentalHealthForum = () => {
           </div>
 
           <div className="flex gap-8">
-            {/* Discussions List */}
+            {/* discussions list */}
             <div className="flex-1 space-y-4">
               {sortedDiscussions.map((discussion) => (
                 <div 

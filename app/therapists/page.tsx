@@ -9,18 +9,17 @@ import {
   approaches, 
   filterTherapists,
   getAvailabilityColor 
-} from '../../lib/therapists';
-import BackButton from '../../components/BackButton';
+} from '@/lib/therapists';
+import BackButton from '@/components/BackButton';
 
 const TherapistDirectory = () => {
+  const router = useRouter();
+  const allTherapists = getAllTherapists();
+  const [searchQuery, setSearchQuery] = useState('');
   const [selectedSpecialty, setSelectedSpecialty] = useState('All Specialties');
   const [selectedApproach, setSelectedApproach] = useState('All Approaches');
-  const [searchQuery, setSearchQuery] = useState('');
-  const router = useRouter();
 
-  const allTherapists = getAllTherapists();
-
-  // Filter therapists based on selections and search
+  // filter therapists based on selections & search
   const getFilteredTherapists = () => {
     let filtered = filterTherapists(allTherapists, selectedSpecialty, selectedApproach);
     
@@ -46,12 +45,12 @@ const TherapistDirectory = () => {
 
   return (
     <div className="min-h-screen">
-      <div className="max-w-7xl mx-auto px-6 py-8 mt-20">
-        {/* Back Button */}
+      <div className="max-w-7xl mx-auto px-6 py-8 mt-24">
+        {/* back btn */}
         <BackButton href="/" label="Back to Home" className="mb-6" />
-        {/* Header Section */}
+        {/* header section */}
         <div className="mb-30">
-          {/* Badge */}
+          {/* badge */}
           <div className="mb-6">
             <span className="bg-white border border-gray-300 rounded-full px-4 py-2 text-sm text-gray-700 inline-flex items-center">
               Find your perfect therapist match →
@@ -59,7 +58,7 @@ const TherapistDirectory = () => {
           </div>
 
           <div className="flex justify-between items-start">
-            {/* Left side - Title and description */}
+            {/* left - title & desc */}
             <div className="max-w-xl">
               <h1 className="text-5xl font-bold text-black mb-6">
                 Find Your Therapist
@@ -68,7 +67,7 @@ const TherapistDirectory = () => {
                 Connect with experienced mental health professionals who can support your journey to wellness.
               </p>
               
-              {/* Search */}
+              {/* search */}
               <div className="flex gap-3">
                 <input 
                   type="text" 
@@ -85,7 +84,7 @@ const TherapistDirectory = () => {
           </div>
         </div>
 
-        {/* Filters */}
+        {/* filters */}
         <div className="bg-white border-b border-gray-200 mb-8">
           <div className="max-w-7xl mx-auto px-6 py-6">
             <div className="flex flex-wrap gap-4">
@@ -138,7 +137,7 @@ const TherapistDirectory = () => {
           </div>
         </div>
 
-        {/* Therapist Grid */}
+        {/* therapist grid */}
         <div className="max-w-7xl mx-auto px-6 py-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredTherapists.map(therapist => (
@@ -147,7 +146,7 @@ const TherapistDirectory = () => {
                 className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow border border-gray-100 hover:cursor-pointer"
                 onClick={() => handleTherapistClick(therapist.id)}
               >
-                {/* Avatar */}
+                {/* avatar */}
                 <div className="flex items-start justify-between mb-4">
                   <div className="w-16 h-16 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full flex items-center justify-center text-white text-xl font-bold">
                     {therapist.name.split(' ').map(n => n[0]).join('')}
@@ -157,11 +156,11 @@ const TherapistDirectory = () => {
                   </span>
                 </div>
 
-                {/* Name & Credentials */}
+                {/* name & credentials */}
                 <h3 className="text-xl font-bold text-gray-900 mb-1">{therapist.name}</h3>
                 <p className="text-sm text-gray-600 mb-4">{therapist.credentials}</p>
 
-                {/* Specialty Tags */}
+                {/* specialty tags */}
                 <div className="flex flex-wrap gap-2 mb-4">
                   {therapist.specialty.map((spec, idx) => (
                     <span key={idx} className="px-2 py-1 bg-blue-50 text-blue-700 text-xs rounded-full">
@@ -170,17 +169,17 @@ const TherapistDirectory = () => {
                   ))}
                 </div>
 
-                {/* Approach */}
+                {/* approach */}
                 <div className="mb-4">
                   <p className="text-sm text-gray-600">
                     <span className="font-medium">Approach:</span> {therapist.approach}
                   </p>
                 </div>
 
-                {/* Bio */}
+                {/* bio */}
                 <p className="text-sm text-gray-700 mb-4 line-clamp-3">{therapist.bio}</p>
 
-                {/* Details */}
+                {/* details */}
                 <div className="space-y-2 mb-4 text-sm text-gray-600">
                   <div className="flex items-center space-x-2">
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -196,16 +195,15 @@ const TherapistDirectory = () => {
                   </div>
                 </div>
 
-                {/* Actions */}
+                {/* actions */}
                 <div className="flex gap-2">
                   {therapist.acceptingNew ? (
-                    // In app/therapists/page.js - update the booking button
-<button 
-  onClick={() => handleTherapistClick(therapist.id)}
-  className="flex-1 bg-blue-600 text-white px-4 py-2 mt-5 rounded-lg font-medium hover:bg-blue-700 transition-colors"
->
-  Book Consultation
-</button>
+                    <button 
+                      onClick={() => handleTherapistClick(therapist.id)}
+                      className="flex-1 bg-blue-600 text-white px-4 py-2 mt-5 rounded-lg font-medium hover:bg-blue-700 transition-colors"
+                    >
+                      Book Consultation
+                    </button>
                   ) : (
                     <button className="flex-1 bg-gray-300 text-gray-600 px-4 py-2 rounded-lg font-medium cursor-not-allowed">
                       Join Waitlist
@@ -233,7 +231,7 @@ const TherapistDirectory = () => {
           )}
         </div>
 
-        {/* Info Section */}
+        {/* info section */}
         <div className="bg-blue-50 border-t border-blue-100 mt-12">
           <div className="max-w-7xl mx-auto px-6 py-12">
             <h2 className="text-2xl font-bold text-gray-900 mb-6">How It Works</h2>

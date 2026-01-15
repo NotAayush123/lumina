@@ -5,8 +5,8 @@ import React, { useState, useEffect, use } from 'react';
 import { ChevronLeft, Clock, User, Calendar, Share2, Bookmark, ArrowUp } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
-import { findArticleById, getAllArticles, articlesData } from '../../../lib/articles';
-import BackButton from '../../../components/BackButton';
+import { findArticleById, getAllArticles, articlesData } from '@/lib/articles';
+import BackButton from '@/components/BackButton';
 
 const ArticlePage = ({ params }: { params: Promise<{ id: string }> }) => {
   const [article, setArticle] = useState(null);
@@ -14,7 +14,7 @@ const ArticlePage = ({ params }: { params: Promise<{ id: string }> }) => {
   const [showScrollTop, setShowScrollTop] = useState(false);
   const router = useRouter();
 
-  // Unwrap the params Promise
+  // unwrap params promise
   const resolvedParams = use(params);
 
   useEffect(() => {
@@ -54,7 +54,7 @@ const ArticlePage = ({ params }: { params: Promise<{ id: string }> }) => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Navigation Bar */}
+      {/* nav bar */}
       <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
         <div className="max-w-4xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
@@ -74,7 +74,7 @@ const ArticlePage = ({ params }: { params: Promise<{ id: string }> }) => {
         </div>
       </nav>
 
-      {/* Hero Section */}
+      {/* hero section */}
       <div className="relative h-96 overflow-hidden">
         <img 
           src={article.image} 
@@ -114,16 +114,16 @@ const ArticlePage = ({ params }: { params: Promise<{ id: string }> }) => {
         </div>
       </div>
 
-      {/* Article Content */}
+      {/* article content */}
       <div className="max-w-4xl mx-auto px-6 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          {/* Main Content */}
+          {/* main content */}
           <div className="lg:col-span-3">
             <article className="prose prose-lg max-w-none">
               <ReactMarkdown>{article.content}</ReactMarkdown>
             </article>
 
-            {/* Tags */}
+            {/* tags */}
             <div className="mt-12 pt-8 border-t border-gray-200">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">Tags</h3>
               <div className="flex flex-wrap gap-2">
@@ -138,7 +138,7 @@ const ArticlePage = ({ params }: { params: Promise<{ id: string }> }) => {
               </div>
             </div>
 
-            {/* Author Bio */}
+            {/* author bio */}
             <div className="mt-12 p-6 bg-blue-50 rounded-xl">
               <div className="flex items-start space-x-4">
                 <div className="w-16 h-16 bg-blue-200 rounded-full flex items-center justify-center">
@@ -151,7 +151,7 @@ const ArticlePage = ({ params }: { params: Promise<{ id: string }> }) => {
               </div>
             </div>
 
-            {/* Related Articles */}
+            {/* related articles */}
             {article.relatedArticles && (
               <div className="mt-12 pt-8 border-t border-gray-200">
                 <h3 className="text-2xl font-bold text-gray-900 mb-6">Related Articles</h3>
@@ -188,10 +188,10 @@ const ArticlePage = ({ params }: { params: Promise<{ id: string }> }) => {
             )}
           </div>
 
-          {/* Sidebar */}
+          {/* sidebar */}
           <div className="lg:col-span-1">
             <div className="sticky top-24 space-y-6">
-              {/* Crisis Resources */}
+              {/* crisis resources */}
               <div className="bg-red-50 rounded-xl p-6 border border-red-200">
                 <h4 className="font-semibold text-red-900 mb-3">Need Immediate Help?</h4>
                 <div className="space-y-2 text-sm">
