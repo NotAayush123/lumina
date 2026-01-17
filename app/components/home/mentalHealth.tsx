@@ -8,7 +8,7 @@ const MentalHealth = () => {
   const router = useRouter();
   
   return (
-    <div className="bg-white px-8 py-12 relative overflow-hidden" id="how-it-works">
+    <div className="bg-white px-4 sm:px-6 md:px-8 py-12 md:py-16 lg:py-20 relative overflow-hidden" id="how-it-works">
       {/* Background Video */}
       <video 
         autoPlay 
@@ -25,23 +25,23 @@ const MentalHealth = () => {
       
       <div className="max-w-7xl mx-auto relative z-10">
         {/* header */}
-        <div className="text-center mb-10">
-          <h2 className="text-4xl font-bold text-[#2D2C2B] mb-4">How Lumina Works</h2>
-          <p className="text-2xl text-[#6B6B6B] max-w-3xl mx-auto">
+        <div className="text-center mb-8 sm:mb-10 md:mb-12">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#2D2C2B] mb-3 sm:mb-4">How Lumina Works</h2>
+          <p className="text-lg sm:text-xl md:text-2xl text-[#6B6B6B] max-w-3xl mx-auto px-2">
             Three simple steps to better mental health and personalized support
           </p>
         </div>
 
         {/* 3-col step cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-10 md:mb-16">
           {/* step 1 - ai assistant */}
           <div 
-            className="bg-[#F9F4F2] rounded-3xl p-10 shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300 cursor-pointer border-2 border-transparent hover:border-rose-400 group"
+            className="bg-[#F9F4F2] rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300 cursor-pointer border-2 border-transparent hover:border-rose-400 group"
             onClick={() => router.push('/aitherapist')}
           >
             <div className="flex flex-col items-center text-center">
               {/* icon */}
-              <div className="w-24 h-24 rounded-full overflow-hidden mb-6 group-hover:scale-110 transition-transform shadow-xl border-4 border-rose-400">
+              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden mb-4 sm:mb-6 group-hover:scale-110 transition-transform shadow-xl border-4 border-rose-400">
                 <Image 
                   src="https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=400&h=400&fit=crop&q=80" 
                   alt="AI Assistant - Digital chat and messaging"
@@ -52,13 +52,13 @@ const MentalHealth = () => {
               </div>
               
               {/* step number */}
-              <div className="text-sm font-bold text-rose-400 mb-2 uppercase tracking-wide">Step 1</div>
+              <div className="text-xs sm:text-sm font-bold text-rose-400 mb-2 uppercase tracking-wide">Step 1</div>
               
               {/* title */}
-              <h3 className="text-2xl font-bold text-[#2D2C2B] mb-4">AI Assistant</h3>
+              <h3 className="text-lg sm:text-2xl font-bold text-[#2D2C2B] mb-3 sm:mb-4">AI Assistant</h3>
               
               {/* desc */}
-              <p className="text-[#6B6B6B] leading-relaxed mb-4">
+              <p className="text-sm sm:text-base text-[#6B6B6B] leading-relaxed mb-3 sm:mb-4">
                 Get personalized coping strategies, mindfulness exercises, and guided check-ins anytime — works offline and completely private.
               </p>
               
@@ -103,7 +103,14 @@ const MentalHealth = () => {
           {/* step 3 - track progress */}
           <div 
             className="bg-[#F9F4F2] rounded-3xl p-10 shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300 cursor-pointer border-2 border-transparent hover:border-orange-400 group"
-            onClick={() => router.push('/dashboard')}
+            onClick={() => {
+              const currentUser = localStorage.getItem('lumina-current-user');
+              if (!currentUser) {
+                alert('Please sign up or log in first to access your dashboard.');
+                return;
+              }
+              router.push('/dashboard');
+            }}
           >
             <div className="flex flex-col items-center text-center">
               {/* Icon */}

@@ -90,7 +90,7 @@ const HeroSection = () => {
     <section 
       className="relative overflow-hidden bg-gradient-to-br from-blue-500 to-blue-700"
       role="banner"
-      style={{ marginTop: '80px', minHeight: '95vh' }}
+      style={{ marginTop: '80px', minHeight: '100vh' }}
     >
       {/* Star decoration - scattered aesthetically */}
       {/* Top left corner */}
@@ -130,22 +130,22 @@ const HeroSection = () => {
         <div className="text-amber-300 text-xl sm:text-2xl lg:text-3xl animate-pulse" style={{ animationDelay: '0.8s' }}>✦</div>
       </div>
       {/* Main container */}
-      <div className="relative flex items-center justify-center px-8 md:px-16 lg:px-24 py-12 min-h-[90vh] max-w-7xl mx-auto">
+      <div className="relative flex items-center justify-center px-4 sm:px-8 md:px-16 lg:px-24 py-8 sm:py-12 min-h-[90vh] max-w-7xl mx-auto">
         
         {/* Centered Text Content */}
         <div className="w-full text-center z-10">
           <h1 
-            className={`text-white text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 mx-auto transition-all duration-700 ease-in-out drop-shadow-lg ${
+            className={`text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-4 sm:mb-6 mx-auto transition-all duration-700 ease-in-out drop-shadow-lg ${
               animationsTriggered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
             }`}
             style={{ transitionDelay: '500ms', minHeight: '1.2em' }}
           >
-            <span className="inline-block" style={{ width: '100%', minHeight: '1.2em' }}>{getHeadline()}   <span className="inline-block w-1 h-16 bg-amber-300 ml-2 animate-pulse" style={{ animationDuration: '1s' }}></span></span>
+            <span className="inline-block" style={{ width: '100%', minHeight: '1.2em' }}>{getHeadline()}   <span className="inline-block w-1 h-10 sm:h-12 md:h-14 lg:h-16 bg-amber-300 ml-2 animate-pulse" style={{ animationDuration: '1s' }}></span></span>
          
           </h1>
 
           <p 
-            className={`text-white text-lg md:text-xl lg:text-2xl font-light leading-relaxed mb-10 max-w-3xl mx-auto transition-all duration-1000 drop-shadow-md ${
+            className={`text-white text-base sm:text-lg md:text-xl lg:text-2xl font-light leading-relaxed mb-8 sm:mb-10 max-w-3xl mx-auto transition-all duration-1000 drop-shadow-md ${
               animationsTriggered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
             }`}
             style={{ transitionDelay: '1200ms' }}
@@ -153,11 +153,11 @@ const HeroSection = () => {
             {getDescription()}
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center flex-wrap">
             {/* Primary CTA - Warm Coral */}
             <button 
               onClick={() => router.push('/aitherapist')}
-              className={`bg-amber-400 hover:bg-amber-300 text-slate-900 px-8 sm:px-10 py-3 sm:py-4 rounded-full text-base sm:text-lg font-bold shadow-xl transition-all duration-300 hover:shadow-2xl hover:scale-105 active:scale-95 focus:outline-none focus:ring-4 focus:ring-amber-200 ${
+              className={`bg-amber-400 hover:bg-amber-300 text-slate-900 px-6 sm:px-8 md:px-10 py-2.5 sm:py-3 md:py-4 rounded-full text-sm sm:text-base md:text-lg font-bold shadow-xl transition-all duration-300 hover:shadow-2xl hover:scale-105 active:scale-95 focus:outline-none focus:ring-4 focus:ring-amber-200 ${
                 animationsTriggered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
               }`}
               style={{ transitionDelay: '2000ms' }}
@@ -169,7 +169,7 @@ const HeroSection = () => {
             {/* Secondary CTA - Pink Outline */}
             <button 
               onClick={() => router.push('/therapists')}
-              className={`bg-transparent border-3 border-pink-500 text-pink-400  px-8 sm:px-10 py-3 sm:py-4 rounded-full text-base sm:text-lg font-semibold shadow-lg transition-all duration-300 hover:bg-pink-400 hover:text-white hover:shadow-2xl hover:scale-105 active:scale-95 focus:outline-none focus:ring-4 focus:ring-pink-300 ${
+              className={`bg-transparent border-3 border-pink-500 text-pink-400 px-6 sm:px-8 md:px-10 py-2.5 sm:py-3 md:py-4 rounded-full text-sm sm:text-base md:text-lg font-semibold shadow-lg transition-all duration-300 hover:bg-pink-400 hover:text-white hover:shadow-2xl hover:scale-105 active:scale-95 focus:outline-none focus:ring-4 focus:ring-pink-300 ${
                 animationsTriggered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
               }`}
               style={{ transitionDelay: '2500ms' }}

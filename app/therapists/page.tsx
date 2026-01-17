@@ -45,38 +45,38 @@ const TherapistDirectory = () => {
 
   return (
     <div className="min-h-screen">
-      <div className="max-w-7xl mx-auto px-6 py-8 mt-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-6 sm:py-8 mt-20 sm:mt-24">
         {/* back btn */}
-        <BackButton href="/" label="Back to Home" className="mb-6" />
+        <BackButton href="/" label="Back to Home" className="mb-6 sm:mb-8" />
         {/* header section */}
-        <div className="mb-30">
+        <div className="mb-24 sm:mb-30">
           {/* badge */}
-          <div className="mb-6">
-            <span className="bg-white border border-gray-300 rounded-full px-4 py-2 text-sm text-gray-700 inline-flex items-center">
+          <div className="mb-4 sm:mb-6">
+            <span className="bg-white border border-gray-300 rounded-full px-3 sm:px-4 py-2 text-xs sm:text-sm text-gray-700 inline-flex items-center">
               Find your perfect therapist match →
             </span>
           </div>
 
-          <div className="flex justify-between items-start">
+          <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-6 md:gap-0">
             {/* left - title & desc */}
             <div className="max-w-xl">
-              <h1 className="text-5xl font-bold text-black mb-6">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-black mb-4 sm:mb-6">
                 Find Your Therapist
               </h1>
-              <p className="text-gray-600 text-lg leading-relaxed mb-8">
+              <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-6 sm:mb-8">
                 Connect with experienced mental health professionals who can support your journey to wellness.
               </p>
               
               {/* search */}
-              <div className="flex gap-3">
+              <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
                 <input 
                   type="text" 
                   placeholder="🔍 Search by name, specialty, or approach..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="flex-1 px-4 py-3 rounded-lg border border-gray-300 bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-black"
+                  className="flex-1 px-3 sm:px-4 py-2 sm:py-3 rounded-lg border border-gray-300 bg-white text-gray-900 text-sm sm:text-base placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-black"
                 />
-                <button className="bg-black text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-800 transition-colors flex items-center cursor-pointer">
+                <button className="bg-black text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-medium hover:bg-gray-800 transition-colors flex items-center justify-center cursor-pointer text-sm sm:text-base">
                   Search
                 </button>
               </div>
@@ -85,15 +85,15 @@ const TherapistDirectory = () => {
         </div>
 
         {/* filters */}
-        <div className="bg-white border-b border-gray-200 mb-8">
-          <div className="max-w-7xl mx-auto px-6 py-6">
-            <div className="flex flex-wrap gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Specialty</label>
+        <div className="bg-white border-b border-gray-200 mb-6 sm:mb-8 -mx-4 sm:-mx-6 md:-mx-8 px-4 sm:px-6 md:px-8">
+          <div className="max-w-7xl mx-auto">
+            <div className="py-4 sm:py-6 flex flex-col sm:flex-row gap-4 sm:gap-6">
+              <div className="w-full sm:w-auto">
+                <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-2">Specialty</label>
                 <select 
                   value={selectedSpecialty}
                   onChange={(e) => setSelectedSpecialty(e.target.value)}
-                  className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-lg text-sm sm:text-base text-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >
                   {specialties.map(specialty => (
                     <option key={specialty} value={specialty}>{specialty}</option>

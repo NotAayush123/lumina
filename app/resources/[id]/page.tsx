@@ -2,11 +2,14 @@
 "use client";
 
 import React, { useState, useEffect, use } from 'react';
-import { ChevronLeft, Clock, User, Calendar, Share2, Bookmark, ArrowUp } from 'lucide-react';
+import { ChevronLeft, Clock, User, Calendar, Share2, Bookmark, ArrowUp, Video, Headphones, FileText } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
 import { findArticleById, getAllArticles, articlesData } from '@/lib/articles';
 import BackButton from '@/components/BackButton';
+import Navbar from '@/components/home/navbar';
+import EmergencyBar from '@/components/EmergencyBar';
+import AccessibilityMenu from '@/components/AccessibilityMenu';
 
 const ArticlePage = ({ params }: { params: Promise<{ id: string }> }) => {
   const [article, setArticle] = useState(null);
@@ -44,25 +47,36 @@ const ArticlePage = ({ params }: { params: Promise<{ id: string }> }) => {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading article...</p>
+          <p className="text-gray-600">Loading resource...</p>
         </div>
       </div>
     );
   }
 
   const allArticles = getAllArticles();
+  
+  // Helper function to extract YouTube video ID
+  const getYouTubeId = (url) => {
+    const match = url?.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([a-zA-Z0-9_-]{11})/);
+    return match ? match[1] : null;
+  };
+  
+  // Helper function to extract Spotify show ID
+  const getSpotifyId = (url) => {
+    const match = url?.match(/spotify\.com\/show\/([a-zA-Z0-9]{22})/);
+    return match ? match[1] : null;
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* nav bar */}
-      <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
+      <nav className="bg-white border-b border-gray-200 sticky top-0 ">
         <div className="max-w-4xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <BackButton href="/resources" label="Back to Resources" />
             <div className="flex items-center space-x-4">
               <button 
                 onClick={() => setIsBookmarked(!isBookmarked)}
-                className={`p-2 rounded-full transition-colors ${isBookmarked ? 'text-blue-600 bg-blue-50' : 'text-gray-500 hover:text-gray-700'}`}
+                className={`p-2 rounded-full transition-colors ${isBookmarked ? 'text-[#2563EB] bg-blue-50' : 'text-gray-500 hover:text-gray-700'}`}
               >
                 <Bookmark className={`w-5 h-5 ${isBookmarked ? 'fill-current' : ''}`} />
               </button>
@@ -76,19 +90,44 @@ const ArticlePage = ({ params }: { params: Promise<{ id: string }> }) => {
 
       {/* hero section */}
       <div className="relative h-96 overflow-hidden">
-        <img 
-          src={article.image} 
-          alt={article.title}
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-black bg-opacity-30"></div>
+        {article.image ? (
+          <>
+            <img 
+              src={article.image} 
+              alt={article.title}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-black bg-opacity-30"></div>
+          </>
+        ) : (
+          <div className={`w-full h-full ${
+            article.type === 'video' ? 'bg-gradient-to-br from-purple-100 to-blue-100' :
+            article.type === 'audio' ? 'bg-gradient-to-br from-green-100 to-teal-100' :
+            'bg-gradient-to-br from-blue-100 to-indigo-100'
+          } flex items-center justify-center`}>
+            {article.type === 'video' && <Video className="w-32 h-32 text-purple-400" />}
+            {article.type === 'audio' && <Headphones className="w-32 h-32 text-green-400" />}
+            {article.type === 'article' && <FileText className="w-32 h-32 text-blue-400" />}
+          </div>
+        )}
         <div className="absolute bottom-8 left-0 right-0">
           <div className="max-w-4xl mx-auto px-6">
             <div className="bg-white/95 backdrop-blur-sm rounded-lg p-6">
-              <span className="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full mb-4">
-                {article.category}
-              </span>
-              <h1 className="text-4xl font-bold text-gray-900 mb-4 leading-tight">
+              <div className="flex items-center gap-2 mb-4">
+                <span className="inline-block px-3 py-1 bg-blue-100 text-[#2563EB] text-sm font-medium rounded-full">
+                  {article.category}
+                </span>
+                <span className={`inline-block px-3 py-1 text-sm font-medium rounded-full ${
+                  article.type === 'video' ? 'bg-purple-100 text-purple-800' :
+                  article.type === 'audio' ? 'bg-green-100 text-green-800' :
+                  'bg-gray-100 text-gray-800'
+                }`}>
+                  {article.type === 'video' && <span className="flex items-center gap-1"><Video className="w-3 h-3" /> Video</span>}
+                  {article.type === 'audio' && <span className="flex items-center gap-1"><Headphones className="w-3 h-3" /> Podcast</span>}
+                  {article.type === 'article' && <span className="flex items-center gap-1"><FileText className="w-3 h-3" /> Article</span>}
+                </span>
+              </div>
+              <h1 className="text-4xl font-bold text-[#111827] mb-4 leading-tight">
                 {article.title}
               </h1>
               <p className="text-xl text-gray-600 mb-4">{article.description}</p>
@@ -105,7 +144,7 @@ const ArticlePage = ({ params }: { params: Promise<{ id: string }> }) => {
                   </div>
                   <div className="flex items-center space-x-2">
                     <Clock className="w-4 h-4" />
-                    <span>{article.readTime}</span>
+                    <span>{article.duration || article.readTime}</span>
                   </div>
                 </div>
               </div>
@@ -119,6 +158,55 @@ const ArticlePage = ({ params }: { params: Promise<{ id: string }> }) => {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* main content */}
           <div className="lg:col-span-3">
+            {/* Video Embed */}
+            {article.type === 'video' && article.videoUrl && (() => {
+              const videoId = getYouTubeId(article.videoUrl);
+              return videoId ? (
+                <div className="mb-8 rounded-xl overflow-hidden shadow-lg">
+                  <div className="relative" style={{ paddingBottom: '56.25%' }}>
+                    <iframe
+                      className="absolute top-0 left-0 w-full h-full"
+                      src={`https://www.youtube.com/embed/${videoId}`}
+                      title={article.title}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  </div>
+                </div>
+              ) : null;
+            })()}
+            
+            {/* Audio/Podcast Embed */}
+            {article.type === 'audio' && article.audioUrl && (() => {
+              const spotifyId = getSpotifyId(article.audioUrl);
+              return spotifyId ? (
+                <div className="mb-8 rounded-xl overflow-hidden shadow-lg">
+                  <iframe
+                    className="w-full"
+                    style={{ height: '352px' }}
+                    src={`https://open.spotify.com/embed/show/${spotifyId}?utm_source=generator&theme=0`}
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                    loading="lazy"
+                  />
+                </div>
+              ) : (
+                <div className="mb-8 p-6 bg-green-50 rounded-xl border border-green-200">
+                  <h3 className="text-lg font-semibold text-green-900 mb-2 flex items-center gap-2">
+                    <Headphones className="w-5 h-5" />
+                    Listen to this podcast
+                  </h3>
+                  <a 
+                    href={article.audioUrl} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-green-700 hover:text-green-900 underline"
+                  >
+                    Open in Spotify →
+                  </a>
+                </div>
+              );
+            })()}
+            
             <article className="prose prose-lg max-w-none">
               <ReactMarkdown>{article.content}</ReactMarkdown>
             </article>
@@ -178,7 +266,7 @@ const ArticlePage = ({ params }: { params: Promise<{ id: string }> }) => {
                         <div className="flex items-center text-sm text-gray-500">
                           <span>{relatedArticle.author}</span>
                           <span className="mx-2">•</span>
-                          <span>{relatedArticle.readTime}</span>
+                          <span>{relatedArticle.duration || relatedArticle.readTime}</span>
                         </div>
                       </div>
                     );
@@ -193,11 +281,11 @@ const ArticlePage = ({ params }: { params: Promise<{ id: string }> }) => {
             <div className="sticky top-24 space-y-6">
               {/* crisis resources */}
               <div className="bg-red-50 rounded-xl p-6 border border-red-200">
-                <h4 className="font-semibold text-red-900 mb-3">Need Immediate Help?</h4>
+                <h4 className="font-semibold text-[#FF6B6B] mb-3">Need Immediate Help?</h4>
                 <div className="space-y-2 text-sm">
-                  <p className="text-red-800"><strong>Crisis Text Line:</strong> Text HOME to 741741</p>
-                  <p className="text-red-800"><strong>Suicide Prevention:</strong> 988</p>
-                  <p className="text-red-800"><strong>Emergency:</strong> 911</p>
+                  <p className="text-[#111827]"><strong>Crisis Text Line:</strong> Text HOME to 741741</p>
+                  <p className="text-[#111827]"><strong>Suicide Prevention:</strong> 988</p>
+                  <p className="text-[#111827]"><strong>Emergency:</strong> 911</p>
                 </div>
               </div>
 
@@ -219,7 +307,7 @@ const ArticlePage = ({ params }: { params: Promise<{ id: string }> }) => {
       {showScrollTop && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 p-3 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300 z-50"
+          className="fixed bottom-8 right-8 p-3 bg-[#2563EB] text-white rounded-full shadow-lg hover:bg-[#1D4ED8] transition-all duration-300 z-50"
         >
           <ArrowUp className="w-5 h-5" />
         </button>

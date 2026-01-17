@@ -117,10 +117,10 @@ const StudentSuccessSection = () => {
         {/* Main container with overlapping testimonials */}
         <div className="relative">
           {/* Main gradient box - not full width */}
-          <div className="bg-gradient-to-br from-blue-100 to-indigo-100 rounded-2xl sm:rounded-3xl px-6 sm:px-8 md:px-12 lg:px-16 py-12 sm:py-16 md:py-20 mx-auto max-w-6xl relative z-10">
+          <div className="bg-gradient-to-br from-blue-100 to-indigo-100 rounded-xl sm:rounded-2xl md:rounded-3xl px-4 sm:px-8 md:px-12 lg:px-16 py-12 sm:py-16 md:py-20 mx-auto max-w-6xl relative z-10">
             {/* Header */}
             <div className="text-center mb-8 sm:mb-12 md:mb-16">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-gray-900 mb-4">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-gray-900 mb-2 sm:mb-3 md:mb-4 px-2">
                 Real People, Real 
                 <br />
                 <p className="font-semibold">Mental Health Results.</p>
@@ -134,7 +134,7 @@ const StudentSuccessSection = () => {
                 <img 
                   src="https://images.unsplash.com/photo-1602043305640-17965d328839?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
                   alt="Student sitting cross-legged with glasses" 
-                  className="w-full h-full object-cover rounded-3xl"
+                  className="w-full h-full object-cover rounded-2xl md:rounded-3xl"
                 />
               </div>
 

@@ -35,17 +35,17 @@ const EventsResourcesGrid = () => {
   };
 
   return (
-    <div className="bg-gray-50 px-8 py-16 mt-20">
+    <div className="bg-gray-50 px-4 sm:px-6 md:px-8 py-12 sm:py-16 md:py-20 mt-12 md:mt-20">
       <div className="max-w-7xl mx-auto">
         {/* header */}
-        <div className="flex items-center justify-between mb-12">
-          <h2 className="text-4xl font-bold text-gray-900">Mental Health Resources</h2>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-10 sm:mb-12 md:mb-16 gap-4 sm:gap-0">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900">Mental Health Resources</h2>
           <button 
             onClick={() => router.push('/resources')}
-            className="text-blue-600 font-medium text-lg hover:underline flex items-center hover:text-blue-700 transition-colors"
+            className="text-blue-600 font-medium text-base sm:text-lg hover:underline flex items-center hover:text-blue-700 transition-colors w-fit"
           >
             View All 
-            <svg className="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 sm:w-5 sm:h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </button>

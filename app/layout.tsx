@@ -6,6 +6,7 @@ import Navbar from "@/components/home/navbar";
 import EmergencyBar from "@/components/EmergencyBar";
 import AccessibilityMenu from "@/components/AccessibilityMenu";
 import FooterSection from "./components/home/footerSection";
+import { CartProvider } from "./contexts/CartContext";
 const outfit = Outfit({
   variable: "--font-geist-sans",
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -74,7 +75,9 @@ export default function RootLayout({
     <AccessibilityMenu/>
     <Navbar/>
     <div className="mt-24">
+      <CartProvider>
           {children}
+          </CartProvider>
           </div>
             {/* footer */}
     <FooterSection />

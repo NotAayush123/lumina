@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 
 const ChatbotWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const [messages, setMessages] = useState<{ text: string; sender: 'user' | 'bot' }[]>([
     { text: "Hi! I'm your Lumina navigation assistant. How can I help you explore our platform?", sender: 'bot' }
   ]);
@@ -13,6 +14,14 @@ const ChatbotWidget = () => {
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+
+  // Delay appearance by 4 seconds
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 4000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -26,8 +35,8 @@ const ChatbotWidget = () => {
     { icon: Home, label: 'Home', path: '/' },
     { icon: Calendar, label: 'Dashboard', path: '/dashboard' },
     { icon: BookOpen, label: 'Resources', path: '/resources' },
-    { icon: Users, label: 'Find Therapist', path: '/therapists' },
-    { icon: HelpCircle, label: 'Get Help Now', path: '/aitherapist' },
+    { icon: Users, label: 'Support', path: '/support' },
+    { icon: HelpCircle, label: 'Get Help', path: '/aitherapist' },
   ];
 
   const handleQuickAction = (path: string, label: string) => {
@@ -45,6 +54,10 @@ const ChatbotWidget = () => {
     const msg = userMessage.toLowerCase();
     
     if (msg.includes('dashboard') || msg.includes('account') || msg.includes('profile')) {
+      const currentUser = localStorage.getItem('lumina-current-user');
+      if (!currentUser) {
+        return "You need to sign up or log in first to access your dashboard. Please click the 'Sign Up' button in the navigation bar.";
+      }
       setTimeout(() => router.push('/dashboard'), 1000);
       return "I'll take you to your dashboard where you can track your progress, chat with AI, and manage appointments!";
     }
@@ -59,7 +72,27 @@ const ChatbotWidget = () => {
       return "Great! Our resources section has articles, videos, exercises, and audio guides for mental wellness.";
     }
     
-    if (msg.includes('help') || msg.includes('support') || msg.includes('crisis') || msg.includes('talk')) {
+    if (msg.includes('support') || msg.includes('forum') || msg.includes('community') || msg.includes('discuss')) {
+      setTimeout(() => router.push('/support'), 1000);
+      return "Taking you to our community support forum where you can connect with others and share experiences!";
+    }
+    
+    if (msg.includes('contact') || msg.includes('reach out') || msg.includes('email')) {
+      setTimeout(() => router.push('/contact'), 1000);
+      return "I'll take you to our contact page where you can send us a message!";
+    }
+    
+    if (msg.includes('merch') || msg.includes('shop') || msg.includes('buy') || msg.includes('store')) {
+      setTimeout(() => router.push('/merch'), 1000);
+      return "Heading to our merch page where you can support our mission!";
+    }
+    
+    if (msg.includes('cart') || msg.includes('checkout') || msg.includes('order')) {
+      setTimeout(() => router.push('/cart'), 1000);
+      return "Taking you to your support cart!";
+    }
+    
+    if (msg.includes('help') || msg.includes('crisis') || msg.includes('talk') || msg.includes('ai')) {
       setTimeout(() => router.push('/aitherapist'), 1000);
       return "I'm taking you to our AI support chat where you can get immediate help and coping strategies!";
     }
@@ -87,7 +120,7 @@ const ChatbotWidget = () => {
       return "Check out these success stories from our users!";
     }
     
-    return "I can help you navigate to: Dashboard, Find a Therapist, Resources, Get Help Now, or back to Home. What would you like to explore?";
+    return "I can help you navigate to: Dashboard, Resources, Support Forum, Contact, Merch, Get Help Now, or back to Home. What would you like to explore?";
   };
 
   const handleSend = () => {
@@ -113,22 +146,49 @@ const ChatbotWidget = () => {
 
   return (
     <>
-      {/* floating chat btn */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className={`fixed bottom-6 right-6 z-50 p-4 rounded-full shadow-2xl transition-all duration-300 hover:scale-110 ${
-          isOpen 
-            ? 'bg-red-500 hover:bg-red-600' 
-            : 'bg-gradient-to-r from-blue-500 to-teal-500 hover:from-blue-600 hover:to-teal-600'
-        }`}
-      >
-        {isOpen ? <X size={28} className="text-white" /> : <MessageCircle size={28} className="text-white" />}
-        {!isOpen && (
-          <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-6 h-6 flex items-center justify-center animate-pulse">
-            AI
-          </span>
-        )}
-      </button>
+      {/* ENHANCED floating chat btn - Delayed fade-in */}
+      {isVisible && (
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className={`fixed bottom-6 right-6 z-50 rounded-full shadow-2xl transition-all duration-500 hover:scale-110 group animate-fade-in ${
+            isOpen 
+              ? 'bg-red-500 hover:bg-red-600 p-4' 
+              : 'bg-gradient-to-br from-[#FF7A59] to-[#6EC1E4] hover:shadow-3xl p-5'
+          }`}
+        >
+          {/* Pulsing ring for attention */}
+          {!isOpen && (
+            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#FF7A59] to-[#6EC1E4] animate-ping opacity-30"></div>
+          )}
+          
+          {isOpen ? (
+            <X size={28} className="text-white relative z-10 group-hover:rotate-90 transition-transform" />
+          ) : (
+            <>
+              <MessageCircle size={32} className="text-white relative z-10 group-hover:scale-110 transition-transform" />
+              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full animate-pulse z-20">
+                AI
+              </span>
+            </>
+          )}
+        </button>
+      )}
+
+      <style jsx>{`
+        @keyframes fade-in {
+          from {
+            opacity: 0;
+            transform: translateY(10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        .animate-fade-in {
+          animation: fade-in 0.8s ease-out;
+        }
+      `}</style>
 
       {/* chat window(change ui a lil) */}
       {isOpen && (

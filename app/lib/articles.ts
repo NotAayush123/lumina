@@ -1147,3 +1147,543 @@ export const categories = [
   { name: 'Relationships', color: 'bg-orange-500' },
   { name: 'Trauma Recovery', color: 'bg-red-500' },
 ];
+
+// Add video resources
+articlesData['Mental Health Basics'].push(
+  // Anxiety & Coping Skills Videos
+  {
+    id: 101,
+    title: 'Anxiety Explained',
+    description: 'Understanding what anxiety is, how it affects you, and practical strategies to manage it effectively.',
+    author: 'Therapy in a Nutshell',
+    date: '10 Jan 2024',
+    category: 'Mental Health Basics',
+    type: 'video',
+    duration: '12 min watch',
+    videoUrl: 'https://youtu.be/NU0mfknGQ2k',
+    featured: true,
+    content: `## Anxiety Explained
+
+Learn about anxiety from a therapeutic perspective with practical, science-based explanations.
+
+### What You'll Learn:
+- What anxiety really is and why we experience it
+- The difference between helpful and harmful anxiety
+- Practical coping strategies
+- When to seek professional help`
+  },
+  {
+    id: 102,
+    title: 'How to Calm Anxiety',
+    description: 'Evidence-based techniques to calm your anxious mind and body in moments of stress.',
+    author: 'Therapy in a Nutshell',
+    date: '12 Jan 2024',
+    category: 'Mental Health Basics',
+    type: 'video',
+    duration: '10 min watch',
+    videoUrl: 'https://youtu.be/1MxBk9FAN1c',
+    featured: false,
+    content: `## Calming Anxiety Techniques
+
+Discover practical tools to reduce anxiety in the moment and build long-term resilience.
+
+### Techniques Covered:
+- Breathing exercises
+- Grounding techniques
+- Mindfulness practices
+- Cognitive reframing`
+  },
+  {
+    id: 103,
+    title: 'Coping with Panic Attacks',
+    description: 'Understanding panic attacks and learning effective strategies to manage them when they occur.',
+    author: 'Kati Morton',
+    date: '8 Jan 2024',
+    category: 'Mental Health Basics',
+    type: 'video',
+    duration: '8 min watch',
+    videoUrl: 'https://youtu.be/4pLcKucFgoE',
+    featured: false,
+    content: `## Managing Panic Attacks
+
+Learn what happens during a panic attack and how to cope effectively.
+
+### Key Points:
+- Recognizing panic attack symptoms
+- Grounding and breathing techniques
+- Safety planning
+- Building confidence for future situations`
+  },
+  {
+    id: 104,
+    title: 'Anxiety vs Panic: Understanding the Difference',
+    description: 'Clear explanation of the differences between anxiety and panic attacks.',
+    author: 'Kati Morton',
+    date: '15 Jan 2024',
+    category: 'Mental Health Basics',
+    type: 'video',
+    duration: '6 min watch',
+    videoUrl: 'https://youtu.be/7LXbQ0M2G-Y',
+    featured: false,
+    content: `## Anxiety vs Panic
+
+Understand the key differences between general anxiety and panic attacks.
+
+### Learn About:
+- Symptom differences
+- Duration and intensity
+- Treatment approaches
+- When to seek help`
+  },
+  {
+    id: 105,
+    title: 'What Anxiety Feels Like',
+    description: 'An animated exploration of the physical and emotional experience of anxiety.',
+    author: 'Psych2Go',
+    date: '18 Jan 2024',
+    category: 'Mental Health Basics',
+    type: 'video',
+    duration: '5 min watch',
+    videoUrl: 'https://youtu.be/DK5_-N4SCVs',
+    featured: false,
+    content: `## The Experience of Anxiety
+
+A relatable look at what anxiety feels like from the inside.
+
+### Topics:
+- Physical sensations
+- Emotional experiences
+- Common thought patterns
+- Validation and understanding`
+  },
+  // Depression & Mood Videos
+  {
+    id: 106,
+    title: 'Low Mood & Depression: CBT Tips',
+    description: 'NHS-approved cognitive behavioral therapy techniques for managing low mood and depression.',
+    author: 'NHS',
+    date: '5 Jan 2024',
+    category: 'Mental Health Basics',
+    type: 'video',
+    duration: '12 min watch',
+    videoUrl: 'https://youtu.be/qKcRUOWYQ9w',
+    featured: true,
+    content: `## CBT for Depression
+
+Evidence-based cognitive behavioral therapy strategies from the NHS.
+
+### CBT Techniques:
+- Identifying negative thought patterns
+- Behavioral activation
+- Challenging unhelpful beliefs
+- Building positive routines`
+  },
+  {
+    id: 107,
+    title: 'Depression Coping Tools',
+    description: 'Practical, actionable tools to help you cope with depression day-to-day.',
+    author: 'Therapy in a Nutshell',
+    date: '7 Jan 2024',
+    category: 'Mental Health Basics',
+    type: 'video',
+    duration: '14 min watch',
+    videoUrl: 'https://youtu.be/NjbyW7QpYiY',
+    featured: false,
+    content: `## Coping with Depression
+
+Learn practical daily coping strategies for managing depression.
+
+### Tools Include:
+- Activity scheduling
+- Mood tracking
+- Self-compassion practices
+- Small achievable goals`
+  },
+  {
+    id: 108,
+    title: 'When You\'re Feeling Depressed',
+    description: 'What to do when depression hits - immediate and long-term strategies.',
+    author: 'Kati Morton',
+    date: '9 Jan 2024',
+    category: 'Mental Health Basics',
+    type: 'video',
+    duration: '10 min watch',
+    videoUrl: 'https://youtu.be/z09p0qlS9Ik',
+    featured: false,
+    content: `## Managing Depressive Episodes
+
+Practical advice for when you're experiencing depression.
+
+### Strategies:
+- Immediate self-care steps
+- Reaching out for support
+- Breaking tasks into small steps
+- Professional help options`
+  },
+  {
+    id: 109,
+    title: 'Signs of Depression',
+    description: 'Recognizing the common signs and symptoms of depression in yourself or others.',
+    author: 'Psych2Go',
+    date: '11 Jan 2024',
+    category: 'Mental Health Basics',
+    type: 'video',
+    duration: '7 min watch',
+    videoUrl: 'https://youtu.be/w4GZFS3siu0',
+    featured: false,
+    content: `## Recognizing Depression
+
+Learn to identify the signs of depression early.
+
+### Signs Covered:
+- Emotional symptoms
+- Physical changes
+- Behavioral patterns
+- When to seek help`
+  },
+  // Mindfulness & Stress Relief
+  {
+    id: 110,
+    title: 'Mindfulness for Beginners',
+    description: 'A gentle 10-minute introduction to mindfulness meditation practice.',
+    author: 'Mindful Movement',
+    date: '20 Jan 2024',
+    category: 'Mental Health Basics',
+    type: 'video',
+    duration: '10 min watch',
+    videoUrl: 'https://youtu.be/SEfs5TJZ6Nk',
+    featured: true,
+    content: `## Beginner's Mindfulness
+
+Start your mindfulness journey with this accessible guided session.
+
+### What to Expect:
+- Basic breathing awareness
+- Present moment focus
+- Non-judgmental observation
+- Gentle guidance for beginners`
+  },
+  {
+    id: 111,
+    title: '5 Minute Stress Relief Meditation',
+    description: 'Quick and effective meditation for immediate stress relief.',
+    author: 'The Mindful Movement',
+    date: '22 Jan 2024',
+    category: 'Mental Health Basics',
+    type: 'video',
+    duration: '5 min watch',
+    videoUrl: 'https://youtu.be/MIr3RsUWrdo',
+    featured: false,
+    content: `## Quick Stress Relief
+
+Perfect for busy days when you need immediate calm.
+
+### Benefits:
+- Rapid stress reduction
+- Mental clarity
+- Physical relaxation
+- Easy to fit into any schedule`
+  },
+  {
+    id: 112,
+    title: 'Guided Breathing Exercise',
+    description: 'Simple yet powerful breathing technique to calm your nervous system.',
+    author: 'Therapy in a Nutshell',
+    date: '13 Jan 2024',
+    category: 'Mental Health Basics',
+    type: 'video',
+    duration: '5 min watch',
+    videoUrl: 'https://youtu.be/odADwWzHR24',
+    featured: false,
+    content: `## Calming Breath Work
+
+Learn evidence-based breathing techniques for anxiety and stress.
+
+### Techniques:
+- 4-7-8 breathing
+- Box breathing
+- Diaphragmatic breathing
+- When to use each technique`
+  },
+  {
+    id: 113,
+    title: 'Full Body Relaxation',
+    description: 'Progressive muscle relaxation to release tension and promote deep calm.',
+    author: 'Great Meditation',
+    date: '16 Jan 2024',
+    category: 'Mental Health Basics',
+    type: 'video',
+    duration: '10 min watch',
+    videoUrl: 'https://youtu.be/Qg3dQPA3LFM',
+    featured: false,
+    content: `## Progressive Muscle Relaxation
+
+Release physical tension and mental stress with this guided practice.
+
+### Process:
+- Systematic muscle relaxation
+- Body awareness
+- Tension release
+- Deep relaxation state`
+  },
+  // Therapy Knowledge
+  {
+    id: 114,
+    title: 'What is CBT? Cognitive Behavioral Therapy Explained',
+    description: 'Understanding the most researched and effective therapy approach for anxiety and depression.',
+    author: 'Therapy in a Nutshell',
+    date: '4 Jan 2024',
+    category: 'Mental Health Basics',
+    type: 'video',
+    duration: '12 min watch',
+    videoUrl: 'https://youtu.be/8Kk2MEJgHac',
+    featured: true,
+    content: `## Understanding CBT
+
+Learn about cognitive behavioral therapy and how it can help.
+
+### CBT Basics:
+- How thoughts affect feelings and behaviors
+- Core CBT techniques
+- What to expect in therapy
+- Self-help CBT tools`
+  },
+  {
+    id: 115,
+    title: 'What Is DBT? Dialectical Behavior Therapy',
+    description: 'An introduction to DBT and its powerful skills for emotion regulation.',
+    author: 'Kati Morton',
+    date: '6 Jan 2024',
+    category: 'Mental Health Basics',
+    type: 'video',
+    duration: '9 min watch',
+    videoUrl: 'https://youtu.be/G0yKBey6G6Y',
+    featured: false,
+    content: `## DBT Explained
+
+Discover dialectical behavior therapy and its unique approach.
+
+### DBT Skills:
+- Mindfulness
+- Distress tolerance
+- Emotion regulation
+- Interpersonal effectiveness`
+  }
+);
+
+// Add audio podcast resources
+articlesData['Mental Health Basics'].push(
+  {
+    id: 201,
+    title: 'Therapy in a Nutshell Podcast',
+    description: 'Educational podcast making therapy skills accessible to everyone.',
+    author: 'Emma McAdam',
+    date: '8 Jan 2024',
+    category: 'Mental Health Basics',
+    type: 'audio',
+    duration: '20-30 min episodes',
+    audioUrl: 'https://open.spotify.com/show/3Xj7O0WzJ1mQJ0D1QyKQ7D',
+    featured: true,
+    content: `## Therapy in a Nutshell
+
+Learn therapy skills and mental health strategies in accessible, actionable episodes.
+
+### Topics Include:
+- Anxiety and depression management
+- Relationship skills
+- Emotional regulation
+- Evidence-based techniques`
+  },
+  {
+    id: 202,
+    title: 'The Anxiety Guy Podcast',
+    description: 'Real talk about anxiety, panic, and recovery from someone who\'s been there.',
+    author: 'Dennis Simsek',
+    date: '10 Jan 2024',
+    category: 'Mental Health Basics',
+    type: 'audio',
+    duration: '25-40 min episodes',
+    audioUrl: 'https://open.spotify.com/show/3r0xhT1oFwsovFZKu4Qesz',
+    featured: false,
+    content: `## The Anxiety Guy
+
+Personal stories and practical advice for overcoming anxiety disorders.
+
+### Episode Themes:
+- Panic attack recovery
+- Health anxiety
+- Social anxiety
+- Living anxiety-free`
+  },
+  {
+    id: 203,
+    title: 'The Struggle Bus',
+    description: 'Honest conversations about mental health struggles with humor and heart.',
+    author: 'Kathleen Hanna',
+    date: '12 Jan 2024',
+    category: 'Mental Health Basics',
+    type: 'audio',
+    duration: '30-45 min episodes',
+    audioUrl: 'https://open.spotify.com/show/2gcKzZTq07wosE6xJgFmYn',
+    featured: false,
+    content: `## The Struggle Bus
+
+Real, relatable conversations about mental health with guests from all walks of life.
+
+### Topics:
+- Depression and anxiety
+- Therapy experiences
+- Coping mechanisms
+- Mental health stigma`
+  },
+  {
+    id: 204,
+    title: 'The Happiness Lab',
+    description: 'Science-based insights on what makes us happy and how to build lasting well-being.',
+    author: 'Dr. Laurie Santos',
+    date: '14 Jan 2024',
+    category: 'Mental Health Basics',
+    type: 'audio',
+    duration: '30-40 min episodes',
+    audioUrl: 'https://open.spotify.com/show/2yOo6HHtQhqrwxEwhsieNW',
+    featured: true,
+    content: `## The Happiness Lab
+
+Yale professor Dr. Laurie Santos explores the science of happiness.
+
+### Learn About:
+- What actually makes us happy
+- Common happiness misconceptions
+- Research-backed well-being practices
+- Building lasting contentment`
+  },
+  {
+    id: 205,
+    title: 'The Calm Collective',
+    description: 'Gentle conversations and practical tools for finding calm in everyday life.',
+    author: 'Cassie Mendoza-Jones',
+    date: '16 Jan 2024',
+    category: 'Mental Health Basics',
+    type: 'audio',
+    duration: '20-30 min episodes',
+    audioUrl: 'https://open.spotify.com/show/6ICwJ4a1SIQ5y3u7vu5WkT',
+    featured: false,
+    content: `## The Calm Collective
+
+Find peace and calm through mindful conversations and practical guidance.
+
+### Episode Focus:
+- Stress management
+- Self-care practices
+- Mindfulness techniques
+- Emotional wellness`
+  },
+  {
+    id: 206,
+    title: 'Mental Illness Happy Hour',
+    description: 'Candid conversations about mental health, trauma, and recovery.',
+    author: 'Paul Gilmartin',
+    date: '18 Jan 2024',
+    category: 'Mental Health Basics',
+    type: 'audio',
+    duration: '60-90 min episodes',
+    audioUrl: 'https://open.spotify.com/show/5bSgfpwYH0iX4JhnYxVI2m',
+    featured: true,
+    content: `## Mental Illness Happy Hour
+
+Deep, honest conversations about mental health with guests sharing their experiences.
+
+### Topics:
+- Depression and anxiety
+- Addiction and recovery
+- Trauma and healing
+- Therapy journeys`
+  },
+  {
+    id: 207,
+    title: 'The Mindful Kind',
+    description: 'Simple mindfulness practices to integrate into your daily routine.',
+    author: 'Rachael Kable',
+    date: '20 Jan 2024',
+    category: 'Mental Health Basics',
+    type: 'audio',
+    duration: '15-25 min episodes',
+    audioUrl: 'https://open.spotify.com/show/7nrWw642wHgJq8GdXgIYfn',
+    featured: false,
+    content: `## The Mindful Kind
+
+Practical mindfulness tips you can use in everyday life.
+
+### Learn:
+- Mindful eating
+- Stress reduction
+- Present moment awareness
+- Compassionate living`
+  },
+  {
+    id: 208,
+    title: 'Therapy Chat Podcast',
+    description: 'Licensed therapists discuss mental health topics in an accessible way.',
+    author: 'Laura Reagan & Curt Widhalm',
+    date: '22 Jan 2024',
+    category: 'Mental Health Basics',
+    type: 'audio',
+    duration: '30-45 min episodes',
+    audioUrl: 'https://open.spotify.com/show/4iY5F6ldh1E8KTdHENyMq8',
+    featured: false,
+    content: `## Therapy Chat
+
+Professional therapists break down mental health topics for everyone.
+
+### Topics Include:
+- Therapy techniques explained
+- Mental health conditions
+- Self-help strategies
+- When to seek help`
+  },
+  {
+    id: 209,
+    title: 'The Hilarious World of Depression',
+    description: 'Comedians and public figures open up about living with depression.',
+    author: 'John Moe',
+    date: '24 Jan 2024',
+    category: 'Mental Health Basics',
+    type: 'audio',
+    duration: '40-50 min episodes',
+    audioUrl: 'https://open.spotify.com/show/0uLaAr7pcturVcWqhkoi40',
+    featured: false,
+    content: `## The Hilarious World of Depression
+
+Finding humor and hope in conversations about depression.
+
+### Features:
+- Celebrity interviews
+- Personal depression stories
+- Coping through comedy
+- Real talk about treatment`
+  },
+  {
+    id: 210,
+    title: 'Ten Percent Happier with Dan Harris',
+    description: 'Meditation, mindfulness, and practical wisdom from experts and practitioners.',
+    author: 'Dan Harris',
+    date: '26 Jan 2024',
+    category: 'Mental Health Basics',
+    type: 'audio',
+    duration: '30-60 min episodes',
+    audioUrl: 'https://open.spotify.com/show/4p4x59hOvIdS4Cv2F3E2FF',
+    featured: true,
+    content: `## Ten Percent Happier
+
+Meditation and mindfulness made practical and accessible.
+
+### Topics:
+- Meditation for skeptics
+- Mindfulness in daily life
+- Anxiety management
+- Scientific research on meditation`
+  }
+);
+
+// Add General as an alias for Mental Health Basics
+articlesData['General'] = articlesData['Mental Health Basics'];

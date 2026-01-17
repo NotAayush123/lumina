@@ -15,8 +15,8 @@ import AccessibilityMenu from '@/components/AccessibilityMenu';
 const resourceTypes = {
   article: {
     icon: FileText,
-    color: 'bg-blue-500',
-    hoverColor: 'hover:bg-blue-600',
+    color: 'bg-[#2563EB]',
+    hoverColor: 'hover:bg-[#1D4ED8]',
     lightBg: 'bg-blue-50',
     label: 'Article',
     duration: '8-12 min read'
@@ -39,9 +39,9 @@ const resourceTypes = {
   },
   audio: {
     icon: Headphones,
-    color: 'bg-orange-500',
-    hoverColor: 'hover:bg-orange-600',
-    lightBg: 'bg-orange-50',
+    color: 'bg-teal-500',
+    hoverColor: 'hover:bg-teal-600',
+    lightBg: 'bg-teal-50',
     label: 'Audio',
     duration: '8-12 min listen'
   }
@@ -290,11 +290,13 @@ const MentalHealthResourcesPage = () => {
   const enhancedArticlesData = {
     ...articlesData,
     'All': [
-      ...(articlesData['General'] || []).map(a => ({ ...a, type: 'article', difficulty: 'Beginner', isNew: a.id === 1 })),
-      ...(articlesData['Anxiety'] || []).slice(0, 2).map((a, i) => ({ ...a, type: i === 0 ? 'video' : 'exercise', difficulty: 'Intermediate' })),
-      ...(articlesData['Depression'] || []).slice(0, 1).map(a => ({ ...a, type: 'audio', difficulty: 'Beginner', isNew: true })),
-      ...(articlesData['Stress'] || []).slice(0, 2).map(a => ({ ...a, type: 'exercise', difficulty: 'Beginner' })),
-    ].slice(0, 8)
+      ...(articlesData['General'] || []).map(a => ({ ...a, type: 'article', difficulty: 'Beginner', isNew: a.id === 1, featured: a.id === 1 })),
+      ...(articlesData['Anxiety Management'] || []).slice(0, 2).map((a, i) => ({ ...a, type: i === 0 ? 'video' : 'exercise', difficulty: 'Intermediate', featured: i === 0 })),
+      ...(articlesData['Depression Support'] || []).slice(0, 1).map(a => ({ ...a, type: 'audio', difficulty: 'Beginner', isNew: true })),
+      ...(articlesData['Stress Relief'] || []).slice(0, 2).map(a => ({ ...a, type: 'exercise', difficulty: 'Beginner' })),
+      ...(articlesData['Mindfulness & Meditation'] || []).slice(0, 1).map(a => ({ ...a, type: 'audio', difficulty: 'Beginner' })),
+      ...(articlesData['Self-Care'] || []).slice(0, 1).map(a => ({ ...a, type: 'article', difficulty: 'Beginner' })),
+    ].slice(0, 12)
   };
 
   // Filter articles based on active category and search query
@@ -319,6 +321,12 @@ const MentalHealthResourcesPage = () => {
     } else if (activeFilter === 'popular') {
       // Sort by a popularity metric (using id as proxy)
       filtered = [...filtered].sort((a, b) => (a.id || 0) - (b.id || 0)).slice(0, 8);
+    } else if (activeFilter === 'articles') {
+      filtered = filtered.filter(a => (a.type || 'article') === 'article');
+    } else if (activeFilter === 'videos') {
+      filtered = filtered.filter(a => a.type === 'video');
+    } else if (activeFilter === 'audio') {
+      filtered = filtered.filter(a => a.type === 'audio');
     }
     
     return filtered;
@@ -485,6 +493,42 @@ const MentalHealthResourcesPage = () => {
           >
             <TrendingUp className="w-4 h-4" />
             Popular
+          </button>
+          
+          {/* Type Filters */}
+          <div className="h-8 w-px bg-gray-300 mx-2"></div>
+          <button 
+            onClick={() => setActiveFilter('articles')}
+            className={`px-5 py-2.5 rounded-lg font-medium whitespace-nowrap transition-all text-sm flex items-center gap-2 ${
+              activeFilter === 'articles'
+                ? 'bg-blue-500 text-white shadow-md'
+                : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-300'
+            }`}
+          >
+            <FileText className="w-4 h-4" />
+            Articles
+          </button>
+          <button 
+            onClick={() => setActiveFilter('videos')}
+            className={`px-5 py-2.5 rounded-lg font-medium whitespace-nowrap transition-all text-sm flex items-center gap-2 ${
+              activeFilter === 'videos'
+                ? 'bg-purple-500 text-white shadow-md'
+                : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-300'
+            }`}
+          >
+            <Video className="w-4 h-4" />
+            Videos
+          </button>
+          <button 
+            onClick={() => setActiveFilter('audio')}
+            className={`px-5 py-2.5 rounded-lg font-medium whitespace-nowrap transition-all text-sm flex items-center gap-2 ${
+              activeFilter === 'audio'
+                ? 'bg-orange-500 text-white shadow-md'
+                : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-300'
+            }`}
+          >
+            <Headphones className="w-4 h-4" />
+            Audio
           </button>
         </motion.div>
 
